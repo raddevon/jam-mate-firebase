@@ -1,26 +1,22 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  Navigator,
+  Image, ImageBackground
+} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2 } from 'native-base';
+import Router from './routes/Router';
 
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <Container>
-      <View>
-        <Header>
-            <Left>
-            <Title style={{fontSize:20, color:'rgba(255,  180, 80, 1)', fontWeight:'bold'}}>Home</Title>
-            </Left>
-            <Body>
-            </Body>
-            <Right />
-            </Header>
-        </View>
-        <Text>Edits are happening. Boom.</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
+      <Router />
       </Container>
     );
   }
