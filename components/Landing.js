@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from "./Login";
-import { Text, View, ImageBackground, StyleSheet, StatusBar} from 'react-native';
+import { Text, View, ImageBackground, StyleSheet, StatusBar, Image} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H1, H2, H3 } from 'native-base';
 import * as firebase from 'firebase';
@@ -20,7 +20,7 @@ export default class Landing extends Component{
   }
 
   async loginWithFacebook(){
-    const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile']})
+    const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile', 'email']})
 
     if(type == 'success'){
       const credential = firebase.auth.FacebookAuthProvider.credential(token)
@@ -51,21 +51,16 @@ export default class Landing extends Component{
       rounded
       active
       onPress={
-        () => this.loginWithFacebook()
+        () => this.loginWithFacebook().then(function(){
+          navigate('Home') 
+        })
       }
       >
-      <Text style={{color:'white', padding:5}}> Login with Facebook </Text>
-      </Button>
+      <Image
+       source={require('../img/facebook_login.png')}
+       style={{flex:1, height: '100%', width: '100%'}}
 
-      <Button
-      style={{alignSelf:'center', margin:20}} 
-      success
-      rounded
-      active
-      onPress={
-        () => navigate('Home')}
-      >
-      <Text style={{color:'white', padding:5}}> Get Started </Text>
+      />
       </Button>
       </View>
       </ImageBackground>
