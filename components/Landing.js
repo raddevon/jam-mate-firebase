@@ -9,7 +9,9 @@ export default class Landing extends Component{
   constructor(props){
     super(props)
   }
-
+  static navigationOptions = {
+    headerLeft: null
+  }
   componentDidMount(){
 
     firebase.auth().onAuthStateChanged((user)=>{
@@ -33,6 +35,7 @@ export default class Landing extends Component{
 
   render(){
     const { navigate } = this.props.navigation;
+
     return(
       <Container>
       <ImageBackground

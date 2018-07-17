@@ -6,14 +6,15 @@ import { createStackNavigator, StackNavigator, TabNavigator } from 'react-naviga
 import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
 import { Text, View, ImageBackground } from 'react-native';
 
+
 const Router = createStackNavigator({
-  Landing:{
-    screen:Landing
+    Landing: Landing,
+    Home: Home,
   },
-  Home: {
-    screen: Home
-  }
-});
+  {
+    initialRouteName: 'Landing',
+  }  
+);
 
 export default Router;
 
