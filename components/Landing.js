@@ -1,12 +1,36 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground, StyleSheet} from 'react-native';
+import Login from "./Login";
+import { Text, View, ImageBackground, StyleSheet, StatusBar} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H1, H2, H3 } from 'native-base';
+import * as firebase from 'firebase';
 
 export default class Landing extends Component{
   constructor(props){
     super(props)
   }
+
+  componentDidMount(){
+
+    firebase.auth().onAuthStateChanged((user)=>{
+      if(user != null){
+        console.log(user)
+      }
+    })
+  }
+
+  async loginWithFacebook(){
+    const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile']})
+
+    if(type == 'success'){
+      const credential = firebase.auth.FacebookAuthProvider.credential(token)
+
+      firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error)=>{
+        console.log(error)
+      })
+    }
+  }
+
   render(){
     const { navigate } = this.props.navigation;
     return(
@@ -15,12 +39,24 @@ export default class Landing extends Component{
        style={{flex:1, width: window.width, 
         height: window.height}}
       source={require('../img/music.jpg')}>
-      <View>
+      <View style={styles.overlay}>
       <Left />
       <Body>
       <H1 style={styles.title}> Jammate </H1>
       </Body>
       <Right />
+      <Button
+      style={{alignSelf:'center', margin:20}} 
+      success
+      rounded
+      active
+      onPress={
+        () => this.loginWithFacebook()
+      }
+      >
+      <Text style={{color:'white', padding:5}}> Login with Facebook </Text>
+      </Button>
+
       <Button
       style={{alignSelf:'center', margin:20}} 
       success
@@ -55,8 +91,8 @@ const styles = StyleSheet.create({
   },
   overlay:{
     backgroundColor:'rgba(0,0,0,.25)',
-    height: 100,
-    width: 400,
+    height: window.height,
+    width: window.width,
     flex:1
   }
 });
