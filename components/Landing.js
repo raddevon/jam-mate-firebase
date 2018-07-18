@@ -20,7 +20,7 @@ export default class Landing extends Component{
   componentDidMount(){
 
     firebase.auth().onAuthStateChanged((user)=>{
-      if(user != null){
+      if(user){
         console.log(user.displayname)
       }
     })
@@ -32,15 +32,24 @@ export default class Landing extends Component{
       const response = await fetch(
         `https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large),first_name,last_name`);
       const jresponse = await response.json();
+      console.log('hey, this is the response for photo?', jresponse.picture.data.url)
+      this.setState({userphoto:jresponse.picture.data.url})
       console.log('hey, this is the response for first_name', jresponse.first_name)
       this.setState({firstname:jresponse.first_name})
       console.log('hey, this is the response for last_name', jresponse.last_name)
       this.setState({lastname:jresponse.last_name})
+      console.log('here are the states:', this.state.firstname, this.state.lastname, this.state.userphoto)
       const credential = firebase.auth.FacebookAuthProvider.credential(token)
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function(){
-        firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error)=>{
-          console.log(error)
-        })
+      firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(){
+        userId = firebase.auth().currentUser.uid;
+        console.log('currentuser.uid', userId)
+        if (userId) {
+          firebase.database().ref('users').child(userId).child('firstname').set(this.state.firstname);
+          firebase.database().ref('users').child(userId).child('lastname').set(this.state.lastname);
+          firebase.database().ref('users').child(userId).child('userphoto').set(this.state.userphoto);
+        }
+      }).catch((error)=>{
+        console.log(error)
       })
     }
   }
