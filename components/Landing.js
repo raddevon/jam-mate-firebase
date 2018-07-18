@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Login from "./Login";
-import { Text, View, ImageBackground, StyleSheet, StatusBar, Image} from 'react-native';
+import { Text, View, ImageBackground, StyleSheet, StatusBar, Image, Alert} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H1, H2, H3 } from 'native-base';
 import * as firebase from 'firebase';
@@ -8,10 +8,11 @@ import * as firebase from 'firebase';
 export default class Landing extends Component{
   constructor(props){
     super(props)
+    this.state = {
+      userInfo:null
+    }
   }
-  static navigationOptions = {
-    headerLeft: null
-  }
+
   componentDidMount(){
 
     firebase.auth().onAuthStateChanged((user)=>{
