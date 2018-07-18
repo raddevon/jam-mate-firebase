@@ -9,7 +9,11 @@ export default class Landing extends Component{
   constructor(props){
     super(props);
     this.state={
-      current_user_name:null
+      username:null,
+      user:null,
+      userphoto:null,
+      firstname:null,
+      lastname:null
     }
   }
 
@@ -18,24 +22,30 @@ export default class Landing extends Component{
     firebase.auth().onAuthStateChanged((user)=>{
       if(user != null){
         console.log(user.displayname)
-        this.setState=({current_user_name:user.displayname})
-        console.log('this is the state of current user name at the end of the login', this.state.current_user_name)
       }
     })
   }
 
   async loginWithFacebook(){
-      const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile', 'email']})
-
+    const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile', 'email']})
     if(type == 'success'){
+      const response = await fetch(
+        `https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large),first_name,last_name`);
+      const jresponse = await response.json();
+      console.log('hey, this is the response for first_name', jresponse.first_name)
+      this.setState({firstname:jresponse.first_name})
+      console.log('hey, this is the response for last_name', jresponse.last_name)
+      this.setState({lastname:jresponse.last_name})
       const credential = firebase.auth.FacebookAuthProvider.credential(token)
-
-      firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error)=>{
-        console.log(error)
+      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).then(function(){
+        firebase.auth().signInAndRetrieveDataWithCredential(credential).catch((error)=>{
+          console.log(error)
+        })
       })
     }
   }
-    
+  
+
 
   render(){
     const { navigate } = this.props.navigation;

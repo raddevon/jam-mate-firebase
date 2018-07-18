@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Alert} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert, Image} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2 } from 'native-base';
  import * as firebase from 'firebase';
@@ -10,7 +10,8 @@ export default class Home extends Component{
     super(props);
     this.state={
       username:firebase.auth().currentUser.displayName,
-      user:firebase.auth().currentUser
+      user:firebase.auth().currentUser,
+      userphoto:firebase.auth().currentUser.photoURL
     }
   }
   
@@ -28,8 +29,9 @@ export default class Home extends Component{
 
   componentDidMount(){
   Alert.alert('Successfully Logged In!')
-  console.log('state being saved for current user name is', this.state.username)
-  console.log('state being saved for current user--big--', this.state.user)
+  console.log('the new currentuser', this.state.user)
+  console.log('state being saved for current user photo', this.state.userphoto)
+  console.log('first name and last name prop', this.props.firstname, this.props.lastname)
   }
 
   render(){
@@ -37,6 +39,10 @@ export default class Home extends Component{
     return(
       <Container>
         <Text>Hi {this.state.username} !</Text>
+        <Image
+          style={{width: 150, height: 150, borderRadius: 150/2}}
+          source={{uri:this.state.userphoto}}
+          />
     </Container>
     )
   }
