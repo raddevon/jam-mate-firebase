@@ -7,9 +7,9 @@ import * as firebase from 'firebase';
 
 export default class Landing extends Component{
   constructor(props){
-    super(props)
-    this.state = {
-      userInfo:null
+    super(props);
+    this.state={
+      current_user_name:null
     }
   }
 
@@ -17,13 +17,15 @@ export default class Landing extends Component{
 
     firebase.auth().onAuthStateChanged((user)=>{
       if(user != null){
-        console.log(user)
+        console.log(user.displayname)
+        this.setState=({current_user_name:user.displayname})
+        console.log('this is the state of current user name at the end of the login', this.state.current_user_name)
       }
     })
   }
 
   async loginWithFacebook(){
-    const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile', 'email']})
+      const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile', 'email']})
 
     if(type == 'success'){
       const credential = firebase.auth.FacebookAuthProvider.credential(token)
@@ -33,6 +35,7 @@ export default class Landing extends Component{
       })
     }
   }
+    
 
   render(){
     const { navigate } = this.props.navigation;

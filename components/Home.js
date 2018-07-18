@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2 } from 'native-base';
  import * as firebase from 'firebase';
@@ -8,8 +8,11 @@ import { Container, Content, Header, Form, Input, Item, Button,
 export default class Home extends Component{
   constructor(props){
     super(props);
+    this.state={
+      username:firebase.auth().currentUser.displayName,
+      user:firebase.auth().currentUser
+    }
   }
-  
   
   static navigationOptions = {
     title: 'Home',
@@ -23,13 +26,17 @@ export default class Home extends Component{
     },
   };
 
-  componentDidMount(){}
+  componentDidMount(){
+  Alert.alert('Successfully Logged In!')
+  console.log('state being saved for current user name is', this.state.username)
+  console.log('state being saved for current user--big--', this.state.user)
+  }
 
   render(){
     const { navigate } = this.props.navigation;
     return(
       <Container>
-        <Text>Hi ! </Text>
+        <Text>Hi {this.state.username} !</Text>
     </Container>
     )
   }
