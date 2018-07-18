@@ -28,10 +28,10 @@ export default class Home extends Component{
   };
 
   componentDidMount(){
-  Alert.alert('Successfully Logged In!')
-  console.log('the new currentuser', this.state.user)
-  console.log('state being saved for current user photo', this.state.userphoto)
-  console.log('first name and last name prop', this.props.firstname, this.props.lastname)
+  // Alert.alert('Successfully Logged In!')
+  // console.log('the new currentuser', this.state.user)
+  // console.log('state being saved for current user photo', this.state.userphoto)
+  // console.log('first name and last name prop', this.props.firstname, this.props.lastname)
   }
 
   render(){
