@@ -17,11 +17,11 @@ export default class Landing extends Component{
     }
   }
 
+
   componentDidMount(){
 
     firebase.auth().onAuthStateChanged((user)=>{
       if(user){
-        console.log(user.displayname)
       }
     })
   }
@@ -32,14 +32,10 @@ export default class Landing extends Component{
       const response = await fetch(
         `https://graph.facebook.com/me?access_token=${token}&fields=id,name,picture.type(large),first_name,last_name`);
       const jresponse = await response.json();
-      console.log('WHAT MY NAME?', jresponse.first_name)
       this.setState({userphoto:jresponse.picture.data.url, firstname:jresponse.first_name, lastname:jresponse.last_name}, () => {
-        console.log('here are the states:', this.state.firstname, this.state.lastname, this.state.userphoto);
-
         const credential = firebase.auth.FacebookAuthProvider.credential(token)
         firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(){
           userId = firebase.auth().currentUser.uid;
-          console.log('currentuser.uid', userId)
           if (userId) {
             firebase.database().ref('users').child(userId).child('firstname').set(jresponse.first_name);
             firebase.database().ref('users').child(userId).child('lastname').set(jresponse.last_name);
