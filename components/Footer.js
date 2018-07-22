@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base';
-export default class FooterTabsExample extends Component {
+import {View} from 'react-native';
+
+export default class FooterTabs extends Component {
   render() {
     return (
-      <Container>
-        <Header />
-        <Content />
+      <View>
         <Footer>
           <FooterTab>
             <Button>
@@ -22,7 +22,7 @@ export default class FooterTabsExample extends Component {
             </Button>
           </FooterTab>
         </Footer>
-      </Container>
+      </View>
     );
   }
 }

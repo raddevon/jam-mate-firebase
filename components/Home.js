@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row} from 'native-base';
+ import FooterTabs from './Footer'
  import * as firebase from 'firebase';
 
 
@@ -62,6 +63,7 @@ export default class Home extends Component{
             <Text>Instruments</Text>
             </Row>
         </Grid>
+        <FooterTabs />
     </Container>
     )
   }
