@@ -8,17 +8,17 @@ export default class FooterTabs extends Component {
       <View>
         <Footer>
           <FooterTab>
-            <Button>
-              <Text>Apps</Text>
-            </Button>
-            <Button>
-              <Text>Camera</Text>
-            </Button>
             <Button active>
-              <Text>Navigate</Text>
+              <Text>Profile</Text>
             </Button>
             <Button>
-              <Text>Contact</Text>
+              <Text>Search</Text>
+            </Button>
+            <Button>
+              <Text>Messages</Text>
+            </Button>
+            <Button>
+              <Text>somethingelse</Text>
             </Button>
           </FooterTab>
         </Footer>
