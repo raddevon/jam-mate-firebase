@@ -26,7 +26,7 @@ export default class Landing extends Component{
     })
   }
 
-  async loginWithFacebook(){
+  async _loginWithFacebook(){
     const {type, token} = await Expo.Facebook.logInWithReadPermissionsAsync('2085907415001272', {permissions:['public_profile', 'email']})
     if(type == 'success'){
       const response = await fetch(
@@ -72,7 +72,7 @@ export default class Landing extends Component{
       rounded
       active
       onPress={
-        () => this.loginWithFacebook().then(function(){
+        () => this._loginWithFacebook().then(function(){
           navigate('Home') 
         })
       }

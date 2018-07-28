@@ -32,17 +32,22 @@ export default class Home extends Component{
   componentDidMount(){
     let that = this;
     let userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('/users/'+ userId).child('userphoto').once('value').then(function(snapshot) {
-    let userphoto = (snapshot.val() || '');
-    that.setState({userphoto:userphoto});
-    console.log(userphoto)
+    firebase.database().ref('/users/'+ userId).child('userphoto').once('value').then((function(snapshot){
+      let userphoto = (snapshot.val() || '');
+      that.setState({userphoto:userphoto});
+      console.log(userphoto)
   // ...
-    });
+    }));
+  }
+
+  
+    
+
   // Alert.alert('Successfully Logged In!')
   // console.log('the new currentuser', this.state.user)
   // console.log('state being saved for current user photo', this.state.userphoto)
   // console.log('first name and last name prop', this.props.firstname, this.props.lastname)
-  }
+  
 
   render(){
         const { navigate } = this.props.navigation;
@@ -61,7 +66,7 @@ export default class Home extends Component{
             <Text> Your UID is: {this.state.uid}</Text>
             <Row style={{ backgroundColor: '#2E0094'}}>
             <Text style={styles.helpText}>Genres To Play</Text>
-            <Text>Instruments</Text>
+            <Text style={styles.helpText}>Instruments</Text>
             </Row>
         </Grid>
           <Footer>
