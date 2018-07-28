@@ -3,12 +3,22 @@ import { Container, Header, Content, Footer, FooterTab, Button, Text } from 'nat
 import {View} from 'react-native';
 
 export default class FooterTabs extends Component {
+   constructor(props){
+    super(props);
+  }
+  
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <View>
         <Footer>
           <FooterTab>
-            <Button active>
+            <Button 
+            onPress={
+              () => navigate('ProfileEdit')
+            }
+            >
               <Text>Profile</Text>
             </Button>
             <Button>

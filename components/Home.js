@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
- Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row} from 'native-base';
+ Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab} from 'native-base';
  import FooterTabs from './Footer'
  import * as firebase from 'firebase';
 
@@ -45,7 +45,8 @@ export default class Home extends Component{
   }
 
   render(){
-    const { navigate } = this.props.navigation;
+        const { navigate } = this.props.navigation;
+
 
     return(
       <Container>
@@ -63,7 +64,26 @@ export default class Home extends Component{
             <Text>Instruments</Text>
             </Row>
         </Grid>
-        <FooterTabs />
+          <Footer>
+          <FooterTab>
+            <Button 
+            onPress={
+              () => navigate('ProfileEdit')
+            }
+            >
+              <Text>Profile</Text>
+            </Button>
+            <Button>
+              <Text>Search</Text>
+            </Button>
+            <Button>
+              <Text>Messages</Text>
+            </Button>
+            <Button>
+              <Text>somethingelse</Text>
+            </Button>
+          </FooterTab>
+        </Footer>
     </Container>
     )
   }
