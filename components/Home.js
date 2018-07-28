@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Alert, Image} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert, Image, Platform} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
- Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab} from 'native-base';
+ Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
  import FooterTabs from './Footer'
  import * as firebase from 'firebase';
 
@@ -13,7 +13,9 @@ export default class Home extends Component{
       username:firebase.auth().currentUser.displayName,
       user:firebase.auth().currentUser,
       userphoto:firebase.auth().currentUser.photoURL,
-      uid:firebase.auth().currentUser.uid
+      uid:firebase.auth().currentUser.uid,
+      location: null,
+      errorMessage: null,
     }
   }
   
@@ -28,6 +30,41 @@ export default class Home extends Component{
       fontWeight: 'bold',
     },
   };
+
+ componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
+
+    _getLocationAsync = async () => {
+    const { Location, Permissions } = Expo;
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status !== 'granted') {
+      this.setState({
+        errorMessage: 'Permission to access location was denied',
+      });
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    this.setState({ location })
+    let thislat = this.state.location.coords.latitude
+    let thislong = this.state.location.coords.longitude
+    console.log('lat', thislat, 'long', thislong)
+    let usercityobject = {
+      'latitude': 37.785834,
+      'longitude': -122.406417
+    }
+    console.log('user city object...hopefully...', usercityobject)
+    console.log('an attempt to get the latitude:', this.state.location.coords.latitude)
+    let { usercity } = await Location.reverseGeocodeAsync(usercityobject);
+    console.log(usercity)
+  };
+
 
   componentDidMount(){
     let that = this;
@@ -50,7 +87,14 @@ export default class Home extends Component{
   
 
   render(){
-        const { navigate } = this.props.navigation;
+    const { navigate } = this.props.navigation;
+    let text = 'Waiting..';
+    if (this.state.errorMessage) {
+      text = this.state.errorMessage;
+    } else if (this.state.location) {
+      text = JSON.stringify(this.state.location);
+    }
+
 
 
     return(
@@ -58,8 +102,13 @@ export default class Home extends Component{
        <Grid>
             <Row>
             <Text style={{fontSize:25}}>Hi {this.state.username} !</Text>
-            <Image
-              style={{width: 220, height: 250, borderRadius: 150/2, alignSelf:"center", margin:3}}  
+            </Row>
+            <Row>
+            <Text> {text} </Text>
+            </Row>
+            <Row>
+            <Thumbnail large
+              style={{width: 220, height: 250, alignSelf:"center", margin:3}}  
               source={{uri:this.state.userphoto}}
             />
             </Row>
