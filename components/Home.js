@@ -46,7 +46,12 @@ export default class Home extends Component{
     console.log('state sanity check:', this.state.usercityobject)
     Expo.Location.reverseGeocodeAsync(this.state.usercityobject).then(function(result){
       console.log(result)
-    }).catch(function(error){
+      let reverseResult = result
+      console.log('this should be the zip: ', reverseResult[0].postalCode)
+      let userId = firebase.auth().currentUser.uid;
+      firebase.database().ref('users').child(userId).child('zipcode').set(reverseResult[0].postalCode)
+    })
+    .catch(function(error){
       console.log('there was an error :-(', error)
     });
   }
@@ -64,17 +69,11 @@ export default class Home extends Component{
     this.setState({ location })
     let thislat = this.state.location.coords.latitude
     let thislong = this.state.location.coords.longitude
-    console.log('lat', thislat, 'long', thislong)
     let usercityobject = {
       'latitude': thislat,
       'longitude': thislong,
     }
-    console.log('user city object...hopefully...', usercityobject)
     this.setState({ usercityobject: usercityobject})
-    console.log('logged as user city object state:', this.state.usercityobject)
-    console.log('an attempt to get the latitude:', this.state.location.coords.latitude)
-    let { usercity } = await Location.reverseGeocodeAsync(usercityobject);
-    console.log(usercity)
   };
 
 
@@ -84,7 +83,6 @@ export default class Home extends Component{
     firebase.database().ref('/users/'+ userId).child('userphoto').once('value').then((function(snapshot){
       let userphoto = (snapshot.val() || '');
       that.setState({userphoto:userphoto});
-      console.log(userphoto)
   // ...
     }));
   }
