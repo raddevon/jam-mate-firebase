@@ -16,6 +16,7 @@ export default class Home extends Component{
       uid:firebase.auth().currentUser.uid,
       location: null,
       errorMessage: null,
+      usercityobject: null,
     }
   }
   
@@ -41,6 +42,15 @@ export default class Home extends Component{
     }
   }
 
+    _getCity = async () => {
+    console.log('state sanity check:', this.state.usercityobject)
+    Expo.Location.reverseGeocodeAsync(this.state.usercityobject).then(function(result){
+      console.log(result)
+    }).catch(function(error){
+      console.log('there was an error :-(', error)
+    });
+  }
+
     _getLocationAsync = async () => {
     const { Location, Permissions } = Expo;
     let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -56,10 +66,12 @@ export default class Home extends Component{
     let thislong = this.state.location.coords.longitude
     console.log('lat', thislat, 'long', thislong)
     let usercityobject = {
-      'latitude': 37.785834,
-      'longitude': -122.406417
+      'latitude': thislat,
+      'longitude': thislong,
     }
     console.log('user city object...hopefully...', usercityobject)
+    this.setState({ usercityobject: usercityobject})
+    console.log('logged as user city object state:', this.state.usercityobject)
     console.log('an attempt to get the latitude:', this.state.location.coords.latitude)
     let { usercity } = await Location.reverseGeocodeAsync(usercityobject);
     console.log(usercity)
@@ -127,7 +139,10 @@ export default class Home extends Component{
             >
               <Text>Profile</Text>
             </Button>
-            <Button>
+            <Button
+            onPress={
+              () => this._getCity()
+            }>
               <Text>Search</Text>
             </Button>
             <Button>
