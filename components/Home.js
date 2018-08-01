@@ -43,11 +43,8 @@ export default class Home extends Component{
   }
 
     _getCity = async () => {
-    console.log('state sanity check:', this.state.usercityobject)
     Expo.Location.reverseGeocodeAsync(this.state.usercityobject).then(function(result){
-      console.log(result)
       let reverseResult = result
-      console.log('this should be the zip: ', reverseResult[0].postalCode)
       let userId = firebase.auth().currentUser.uid;
       firebase.database().ref('users').child(userId).child('zipcode').set(reverseResult[0].postalCode)
     })
@@ -111,18 +108,16 @@ export default class Home extends Component{
       <Container>
        <Grid>
             <Row>
+            <View style={{ justifyContent: 'center',
+        alignItems: 'center', flex: 1,
+        flexDirection: 'column'}}>
             <Text style={{fontSize:25}}>Hi {this.state.username} !</Text>
-            </Row>
-            <Row>
-            <Text> {text} </Text>
-            </Row>
-            <Row>
             <Thumbnail large
-              style={{width: 220, height: 250, alignSelf:"center", margin:3}}  
+              style={{width: 180, height: 220}}  
               source={{uri:this.state.userphoto}}
             />
+            </View>
             </Row>
-            <Text> Your UID is: {this.state.uid}</Text>
             <Row style={{ backgroundColor: '#2E0094'}}>
             <Text style={styles.helpText}>Genres To Play</Text>
             <Text style={styles.helpText}>Instruments</Text>
