@@ -9,13 +9,10 @@ export default class ProfileTop extends Component{
   }
 
   componentDidMount(){
-    console.log('state check? username', this.props.username)
-    console.log('state check? userphoto', this.props.userphoto)
   }
 
   render(){
     return(
-
       <View style={{ justifyContent: 'center',
         alignItems: 'center', flex: 1,
         flexDirection: 'column'}}>
@@ -25,8 +22,7 @@ export default class ProfileTop extends Component{
               source={{uri:this.props.userphoto}}
       />
       </View>
-      )
+    )
   }
-
 
 }

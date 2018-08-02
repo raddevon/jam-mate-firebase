@@ -4,6 +4,8 @@ import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
  import FooterTabs from './Footer';
  import ProfileTop from './ProfileTop';
+ import Instruments from './Instruments';
+ import Genres from './Genres'
  import * as firebase from 'firebase';
 
 
@@ -117,8 +119,12 @@ export default class Home extends Component{
             <ProfileTop username={this.state.username} userphoto={this.state.userphoto} />
             </Row>
             <Row style={{ backgroundColor: '#2E0094'}}>
-            <Text style={styles.helpText}>Genres To Play</Text>
-            <Text style={styles.helpText}>Instruments</Text>
+              <Col>
+                <Instruments />
+              </Col>
+              <Col>
+                <Genres />
+              </Col>
             </Row>
         </Grid>
           <Footer>
