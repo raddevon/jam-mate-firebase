@@ -9,10 +9,22 @@ import { Container, Content, Header, Form, Input, Item, Button,
   constructor(props){
     super(props);
     this.state={
+      toggle:false,
       userzip:null,
       instruments:null,
       genres:null
     }
+  }
+
+  _onPress(){
+    let newState = !this.state.toggle;
+    this.setState({
+      toggle:newState
+    })
+  }
+
+  _onStateChange(newState){
+    this.setState({toggleState:value})
   }
 
   static navigationOptions = {
@@ -42,6 +54,11 @@ import { Container, Content, Header, Form, Input, Item, Button,
 
   render(){
         const { navigate } = this.props.navigation;
+        const { toggle } = this.state
+        const textValue = toggle?"On":"Off";
+        const buttonBg = toggle?"dodgerblue":"white";
+        const textColor = toggle?"white":"black";
+
         let items = [
         'Guitar',
         'Bass',
@@ -56,18 +73,17 @@ import { Container, Content, Header, Form, Input, Item, Button,
       <Container>
           <H3>Your current location: </H3> 
           <Text> {this.state.userzip} </Text>
+          <H3>Instruments You Play: </H3>
           <Grid>
-          <View style={styles.container}>
+          <View style={styles.buttons}>
             <Row>
-              <H3>Instruments You Play: </H3>
               <FlatList 
               data={items}
-              renderItem={({item}) => 
-              <TouchableOpacity
-              >
-              <Text>{item}</Text>
-              </TouchableOpacity>    
-              }>
+              renderItem={({item}) =>
+              <Text> {item} </Text>
+              }
+              keyExtractor={(item, index) => index.toString()}
+              > 
               </FlatList>
             </Row>
           </View>
@@ -83,9 +99,11 @@ import { Container, Content, Header, Form, Input, Item, Button,
 }
 
 const styles = StyleSheet.create({
-  container: {
+  buttons: {
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center',
     flexWrap: 'wrap', 
-    alignItems: 'flex-start',
-    flexDirection:'row',
+    flexDirection:'column',
    },
 });
