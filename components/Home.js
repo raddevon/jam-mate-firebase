@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, Platform} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
- import FooterTabs from './Footer'
+ import FooterTabs from './Footer';
+ import ProfileTop from './ProfileTop';
  import * as firebase from 'firebase';
+
 
 
 export default class Home extends Component{
@@ -13,6 +15,7 @@ export default class Home extends Component{
       username:firebase.auth().currentUser.displayName,
       user:firebase.auth().currentUser,
       userphoto:firebase.auth().currentUser.photoURL,
+      userzip:null,
       uid:firebase.auth().currentUser.uid,
       location: null,
       errorMessage: null,
@@ -32,19 +35,14 @@ export default class Home extends Component{
     },
   };
 
- componentWillMount() {
-    if (Platform.OS === 'android' && !Constants.isDevice) {
-      this.setState({
-        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
-      });
-    } else {
-      this._getLocationAsync();
-    }
-  }
 
     _getCity = async () => {
+      let that = this;
     Expo.Location.reverseGeocodeAsync(this.state.usercityobject).then(function(result){
       let reverseResult = result
+      console.log('here is what will be saved to state: ', reverseResult[0].postalCode)
+      that.setState({ userzip: reverseResult[0].postalCode })
+      console.log('and...here is the stats of userzip:', that.state.userzip)
       let userId = firebase.auth().currentUser.uid;
       firebase.database().ref('users').child(userId).child('zipcode').set(reverseResult[0].postalCode)
     })
@@ -74,6 +72,15 @@ export default class Home extends Component{
   };
 
 
+ componentWillMount() {
+    if (Platform.OS === 'android' && !Constants.isDevice) {
+      this.setState({
+        errorMessage: 'Oops, this will not work on Sketch in an Android emulator. Try it on your device!',
+      });
+    } else {
+      this._getLocationAsync();
+    }
+  }
   componentDidMount(){
     let that = this;
     let userId = firebase.auth().currentUser.uid;
@@ -103,20 +110,11 @@ export default class Home extends Component{
     }
 
 
-
     return(
       <Container>
        <Grid>
             <Row>
-            <View style={{ justifyContent: 'center',
-        alignItems: 'center', flex: 1,
-        flexDirection: 'column'}}>
-            <Text style={{fontSize:25}}>Hi {this.state.username} !</Text>
-            <Thumbnail large
-              style={{width: 180, height: 220}}  
-              source={{uri:this.state.userphoto}}
-            />
-            </View>
+            <ProfileTop username={this.state.username} userphoto={this.state.userphoto} />
             </Row>
             <Row style={{ backgroundColor: '#2E0094'}}>
             <Text style={styles.helpText}>Genres To Play</Text>
@@ -135,7 +133,8 @@ export default class Home extends Component{
             <Button
             onPress={
               () => this._getCity()
-            }>
+            }
+            >
               <Text>Search</Text>
             </Button>
             <Button>
