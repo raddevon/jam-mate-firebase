@@ -17,6 +17,9 @@ export default class Landing extends Component{
     }
   }
 
+  static navigationOptions = {
+        header: null
+    }
 
   componentDidMount(){
 

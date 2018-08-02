@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, Platform, TouchableOpacity} from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button,
+import { Container, Content, Header, Form, Input, Icon, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
  import FooterTabs from './Footer';
  import ProfileTop from './ProfileTop';
@@ -34,6 +34,7 @@ export default class Home extends Component{
               () => navigation.navigate('ProfileEdit')
         }
       >
+      <Icon name='menu' />
       <Text>Edit</Text>
       </TouchableOpacity>
     ),
@@ -138,11 +139,7 @@ export default class Home extends Component{
         </Grid>
           <Footer>
           <FooterTab>
-            <Button 
-            onPress={
-              () => navigate('ProfileEdit')
-            }
-            >
+            <Button >
               <Text>Profile</Text>
             </Button>
             <Button

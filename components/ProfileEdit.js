@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem} from 'native-base';
  import FooterTabs from './Footer'
@@ -57,20 +57,20 @@ import { Container, Content, Header, Form, Input, Item, Button,
           <H3>Your current location: </H3> 
           <Text> {this.state.userzip} </Text>
           <Grid>
+          <View style={styles.container}>
             <Row>
               <H3>Instruments You Play: </H3>
               <FlatList 
               data={items}
-              horizontal={true}
               renderItem={({item}) => 
-              <Button
-              rounded
+              <TouchableOpacity
               >
               <Text>{item}</Text>
-              </Button>    
+              </TouchableOpacity>    
               }>
               </FlatList>
             </Row>
+          </View>
             <Row>
           <H3>Genres You Play: </H3>
             </Row>
@@ -79,4 +79,13 @@ import { Container, Content, Header, Form, Input, Item, Button,
 
       )
   }
+
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flexWrap: 'wrap', 
+    alignItems: 'flex-start',
+    flexDirection:'row',
+   },
+});
