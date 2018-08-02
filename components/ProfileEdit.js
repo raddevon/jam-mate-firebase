@@ -5,9 +5,14 @@ import { Container, Content, Header, Form, Input, Item, Button,
  import FooterTabs from './Footer'
  import * as firebase from 'firebase';
 
- export default class Home extends Component{
+ export default class ProfileEdit extends Component{
   constructor(props){
-    super(props)
+    super(props);
+    this.state={
+      userzip:null,
+      instruments:null,
+      genres:null
+    }
   }
 
   static navigationOptions = {
@@ -20,6 +25,20 @@ import { Container, Content, Header, Form, Input, Item, Button,
       fontWeight: 'bold',
     },
   };
+
+  componentWillMount(){
+      let that = this;
+      let userId = firebase.auth().currentUser.uid;
+      firebase.database().ref('/users/'+ userId).child('zipcode').once('value').then((function(snapshot){
+      let userzip = (snapshot.val() || '');
+      that.setState({
+        userzip:userzip
+      })
+      }));
+  }
+
+  componentDidMount(){
+  }
 
   render(){
         const { navigate } = this.props.navigation;
@@ -35,7 +54,8 @@ import { Container, Content, Header, Form, Input, Item, Button,
     return(
 
       <Container>
-          <H3>Your Zipcode: </H3>
+          <H3>Your current location: </H3> 
+          <Text> {this.state.userzip} </Text>
           <Grid>
             <Row>
               <H3>Instruments You Play: </H3>
