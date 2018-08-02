@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Alert, Image, Platform} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert, Image, Platform, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
  import FooterTabs from './Footer';
@@ -25,9 +25,18 @@ export default class Home extends Component{
     }
   }
   
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) => ({
     title: 'Home',
     headerLeft: null,
+    headerRight: (
+      <TouchableOpacity
+        onPress={
+              () => navigation.navigate('ProfileEdit')
+        }
+      >
+      <Text>Edit</Text>
+      </TouchableOpacity>
+    ),
     headerStyle: {
       backgroundColor: '#007bff',
     },
@@ -35,7 +44,7 @@ export default class Home extends Component{
     headerTitleStyle: {
       fontWeight: 'bold',
     },
-  };
+  });
 
 
     _getCity = async () => {
