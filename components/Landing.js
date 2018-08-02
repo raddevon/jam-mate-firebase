@@ -4,6 +4,8 @@ import { Text, View, ImageBackground, StyleSheet, StatusBar, Image, Alert} from 
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H1, H2, H3 } from 'native-base';
 import * as firebase from 'firebase';
+import * as Animatable from 'react-native-animatable';
+
 
 export default class Landing extends Component{
   constructor(props){
@@ -66,7 +68,11 @@ export default class Landing extends Component{
       <View style={styles.overlay}>
       <Left />
       <Body>
+      <Animatable.View animation="flipInY">
+      <Animatable.View animation="pulse" easing="ease-in-out" iterationCount="infinite" iterationDelay={1000}>
       <H1 style={styles.title}> Jammate </H1>
+      </Animatable.View>
+      </Animatable.View>
       </Body>
       <Right />
       <Button
