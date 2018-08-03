@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
- Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox } from 'native-base';
+ Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
  import FooterTabs from './Footer'
+ import InstrumentAdder from './InstrumentAdder'
  import * as firebase from 'firebase';
 
  export default class ProfileEdit extends Component{
@@ -62,6 +63,7 @@ import { Container, Content, Header, Form, Input, Item, Button,
         const textValue = toggle?"On":"Off";
         const buttonBg = toggle?"dodgerblue":"white";
         const textColor = toggle?"white":"black";
+        let userId = firebase.auth().currentUser.uid;
 
         let items = [
         'Guitar',
@@ -77,46 +79,17 @@ import { Container, Content, Header, Form, Input, Item, Button,
       <Container>
           <H3>Your current location: </H3> 
           <Text> {this.state.userzip} </Text>
-          <H3>Instruments You Play: </H3>
-
-          <ListItem>
-            <CheckBox checked={false} />
-            <Body>
-              <Text>Guitar</Text>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <CheckBox checked={false} />
-            <Body>
-              <Text>Bass</Text>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <CheckBox checked={false} color="green"/>
-            <Body>
-              <Text>Drums</Text>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <CheckBox checked={false} color="red"/>
-            <Body>
-              <Text>Vocals(Aggressive)</Text>
-            </Body>
-          </ListItem>
-          <ListItem>
-            <CheckBox checked={false} color="red"/>
-            <Body>
-              <Text>Vocals</Text>
-            </Body>
-          </ListItem>
-          
-
-
+          <H3>Instruments You Play: </H3>       
+          <View style={styles.buttons}   >
           <Grid>
             <Row>
-          <H3>Genres You Play: </H3>
+              <InstrumentAdder userId={userId}/>
+            </Row>
+            <Row>
+              <H3>Genres You Play: </H3>
             </Row>
           </Grid>
+          </View>
       </Container>
 
       )
