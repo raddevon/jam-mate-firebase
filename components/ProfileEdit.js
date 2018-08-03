@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
- Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem} from 'native-base';
+ Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox } from 'native-base';
  import FooterTabs from './Footer'
  import * as firebase from 'firebase';
 
@@ -37,6 +37,10 @@ import { Container, Content, Header, Form, Input, Item, Button,
       fontWeight: 'bold',
     },
   };
+
+  checkBoxTest(){
+    alert('value changed')
+  }
 
   componentWillMount(){
       let that = this;
@@ -74,19 +78,41 @@ import { Container, Content, Header, Form, Input, Item, Button,
           <H3>Your current location: </H3> 
           <Text> {this.state.userzip} </Text>
           <H3>Instruments You Play: </H3>
+
+          <ListItem>
+            <CheckBox checked={false} />
+            <Body>
+              <Text>Guitar</Text>
+            </Body>
+          </ListItem>
+          <ListItem>
+            <CheckBox checked={false} />
+            <Body>
+              <Text>Bass</Text>
+            </Body>
+          </ListItem>
+          <ListItem>
+            <CheckBox checked={false} color="green"/>
+            <Body>
+              <Text>Drums</Text>
+            </Body>
+          </ListItem>
+          <ListItem>
+            <CheckBox checked={false} color="red"/>
+            <Body>
+              <Text>Vocals(Aggressive)</Text>
+            </Body>
+          </ListItem>
+          <ListItem>
+            <CheckBox checked={false} color="red"/>
+            <Body>
+              <Text>Vocals</Text>
+            </Body>
+          </ListItem>
+          
+
+
           <Grid>
-          <View style={styles.buttons}>
-            <Row>
-              <FlatList 
-              data={items}
-              renderItem={({item}) =>
-              <Text> {item} </Text>
-              }
-              keyExtractor={(item, index) => index.toString()}
-              > 
-              </FlatList>
-            </Row>
-          </View>
             <Row>
           <H3>Genres You Play: </H3>
             </Row>

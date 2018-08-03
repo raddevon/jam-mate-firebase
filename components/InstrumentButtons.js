@@ -13,3 +13,44 @@
               keyExtractor={(item, index) => index.toString()}
               >
 </FlatList>
+
+
+
+// testing the checkbox
+            <Row>
+            <ListItem>
+              <CheckBox color="green">
+                <Body>
+                  <Text> Guitar </Text>
+                </Body>
+              </CheckBox>
+            </ListItem>
+            <ListItem>
+              <CheckBox color="green">
+              <Body>
+                  <Text> Bass </Text>
+                </Body>
+              </CheckBox>
+            </ListItem>
+            <ListItem>
+              <CheckBox color="green">
+              <Body>
+                  <Text> Drums </Text>
+                </Body>
+              </CheckBox>
+            </ListItem>
+            <ListItem>
+              <CheckBox color="green">
+              <Body>
+                  <Text> Vocals(Aggressive) </Text>
+                </Body>
+              </CheckBox>
+            </ListItem>
+            <ListItem>
+              <CheckBox color="green">
+              <Body>
+                  <Text> Vocals </Text>
+                </Body>
+              </CheckBox>
+            </ListItem>
+            </Row>
