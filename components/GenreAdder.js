@@ -68,28 +68,32 @@ export default class GenreAdder extends Component{
     <Icon name="add" />
     </Button>
     </Form>
-
+    
+    <View style={{flexDirection:'row', alignItems:'flex-start'}}>
     <List>
     <FlatList 
               extraData={this.state.refresher}
+              style={{flexDirection:'row'}}
               data={this.state.genreList}
               renderItem={({item, index}) => 
               <TouchableOpacity
-              onPress={()=> this._removeGenre(item.key, index)}
-              style={{margin:8, borderRadius:10, height:25, borderColor:'dodgerblue', borderWidth:1, flex:1}}
-              >
-              <Text style={{textAlign:'center',letterSpacing: 1.5, padding:4}}
-              >
-              {item.val()}
-              </Text>
+                onPress={()=> this._removeGenre(item.key, index)}
+                style={{padding:4, marginBottom:6, borderRadius:10, borderColor:'dodgerblue', borderWidth:1, flexDirection:'row',alignSelf: 'center'}}
+                >
+                <Text
+                style={{textAlign:'center',letterSpacing: 1.5,}}
+                >
+                {item.val()}
+                <Icon name="close" style={{textAlign: 'right'}} />
+                </Text>
               </TouchableOpacity>    
               }
               keyExtractor={(item) => item.key}
               >
-</FlatList>
+    </FlatList>
     </List>
-</Content>
-
+    </View>
+    </Content>
     </Container>
     )
 }
