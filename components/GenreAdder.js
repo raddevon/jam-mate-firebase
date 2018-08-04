@@ -13,6 +13,7 @@ export default class GenreAdder extends Component{
     this.state={
       formContent:'',
       genreList:[],
+      refresher:false,
     }
   }
 
@@ -24,27 +25,26 @@ export default class GenreAdder extends Component{
     })
   }
 
-  _putOnPage = () =>{
-    items.push(this.state.formContent)
-    this.setState({
-      formContent:""
+
+    _removeGenre = (key, index)=>{
+    let that=this;
+    refreshCheck = this.state.refresher
+    let tempList = this.state.genreList
+    let userId = this.props.userId;
+    let ref = firebase.database().ref('/users/'+userId).child('genres');
+    tempList.splice(index, 1)
+    that.setState({
+      refresher:!refreshCheck
     })
-    console.log('submit?', this.state.formContent)
-    console.log(items)
+  ref.child(key).remove()
   }
 
   componentWillMount= ()=>{
     let newList=[];
     let that=this;
-    console.log('did that userid pass down?', this.props.userId)
     let ref= firebase.database().ref('/users/'+ this.props.userId).child('genres');
-    console.log('whats a ref', ref)
     ref.orderByKey().on('child_added', function(snapshot){
-      console.log('whats the snapshot with key?', snapshot.key)
-      console.log('whats the snapshot with...nothing', snapshot)
-      console.log('whats the snapshot with val', snapshot.val())
       newList.push(snapshot);
-      console.log('new list after change', newList)
       that.setState({
         genreList:newList
       })
@@ -71,13 +71,17 @@ export default class GenreAdder extends Component{
 
     <List>
     <FlatList 
-              extraData={this.state.formContent}
+              extraData={this.state.refresher}
               data={this.state.genreList}
-              renderItem={({item}) => 
+              renderItem={({item, index}) => 
               <TouchableOpacity
+              onPress={()=> this._removeGenre(item.key, index)}
               style={{margin:8, borderRadius:10, height:25, borderColor:'dodgerblue', borderWidth:1, flex:1}}
               >
-              <Text style={{textAlign:'center',letterSpacing: 1.5, padding:4}}>{item.val()}</Text>
+              <Text style={{textAlign:'center',letterSpacing: 1.5, padding:4}}
+              >
+              {item.val()}
+              </Text>
               </TouchableOpacity>    
               }
               keyExtractor={(item) => item.key}

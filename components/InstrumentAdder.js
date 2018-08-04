@@ -29,30 +29,15 @@ export default class InstrumentAdder extends Component{
     let that=this;
     refreshCheck = this.state.refresher
     let tempList = this.state.instrumentList
-    console.log('tempList sanity check', tempList)
     let userId = this.props.userId;
     let ref = firebase.database().ref('/users/'+userId).child('instruments');
-    console.log('that state of instrumentList', this.state.instrumentList)
-    console.log('what is being removed', tempList[index])
-    tempList.pop(index)
-    console.log('after popping', tempList)
-    console.log('using index -- instrumentList item pulled', this.state.instrumentList[index])
+    tempList.splice(index, 1)
     that.setState({
       refresher:!refreshCheck
     })
   ref.child(key).remove()
-  console.log('refresher status:', this.state.refresher)
-  console.log('after - instrument still there?', this.state.instrumentList)
   }
 
-  _putOnPage = () =>{
-    items.push(this.state.formContent)
-    this.setState({
-      formContent:""
-    })
-    console.log('submit?', this.state.formContent)
-    console.log(items)
-  }
 
   componentWillMount= ()=>{
     let newList=[];
@@ -98,7 +83,7 @@ export default class InstrumentAdder extends Component{
                 <Text
                 style={{textAlign:'center',letterSpacing: 1.5,}}
                 >
-                {item.val()}and index {index}
+                {item.val()}
                 <Icon name="close" style={{textAlign: 'right'}} />
                 </Text>
               </TouchableOpacity>    
