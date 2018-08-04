@@ -24,6 +24,13 @@ export default class InstrumentAdder extends Component{
     })
   }
 
+  _removeInstrument = (key)=>{
+    let userId = this.props.userId;
+    let ref = firebase.database().ref('/users/'+userId).child('instruments');
+    console.log('that state of instrumentList', this.state.instrumentList)
+
+  }
+
   _putOnPage = () =>{
     items.push(this.state.formContent)
     this.setState({
@@ -39,16 +46,15 @@ export default class InstrumentAdder extends Component{
     console.log('did that userid pass down?', this.props.userId)
     let ref= firebase.database().ref('/users/'+ this.props.userId).child('instruments');
     console.log('whats a ref', ref)
-    ref.orderByValue().on('child_added', function(snapshot){
+    ref.orderByKey().on('child_added', function(snapshot){
       console.log('whats the snapshot val', snapshot.val())
-      newList.push(snapshot.val());
+      newList.push(snapshot);
       console.log('new list after change', newList)
       console.log('this is what that order sent back:', snapshot.val())
       that.setState({
         instrumentList:newList
       })
     })
-    console.log('and its done. state of instrumentlist is:', this.state.instrumentList)
   }
 
   render(){
@@ -69,24 +75,31 @@ export default class InstrumentAdder extends Component{
     </Button>
     </Form>
 
+    <View style={{flexDirection:'row', alignItems:'flex-start'}}>
     <List>
     <FlatList 
-              extraData={this.state.formContent}
+              extraData={this.state}
+              style={{flexDirection:'row'}}
               data={this.state.instrumentList}
               renderItem={({item}) => 
               <TouchableOpacity
-              style={{margin:8, borderRadius:10, height:25, borderColor:'dodgerblue', borderWidth:1, flex:1}}
-              >
-              <Text style={{textAlign:'center',letterSpacing: 1.5, padding:4}}>{item}</Text>
+                onPress={()=> this._removeInstrument(item.key)}
+                style={{padding:4, marginBottom:6, borderRadius:10, borderColor:'dodgerblue', borderWidth:1, flexDirection:'row',alignSelf: 'center'}}
+                >
+                <Text
+                style={{textAlign:'center',letterSpacing: 1.5,}}
+                >
+                {item.val()}
+                <Icon name="close" style={{textAlign: 'right'}} />
+                </Text>
               </TouchableOpacity>    
               }
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item) => item.key}
               >
-</FlatList>
+    </FlatList>
     </List>
-
+    </View>
     </Content>
-
     </Container>
     )
 }

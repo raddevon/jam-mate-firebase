@@ -39,16 +39,16 @@ export default class GenreAdder extends Component{
     console.log('did that userid pass down?', this.props.userId)
     let ref= firebase.database().ref('/users/'+ this.props.userId).child('genres');
     console.log('whats a ref', ref)
-    ref.orderByValue().on('child_added', function(snapshot){
-      console.log('whats the snapshot without val', snapshot)
-      newList.push(snapshot.val());
+    ref.orderByKey().on('child_added', function(snapshot){
+      console.log('whats the snapshot with key?', snapshot.key)
+      console.log('whats the snapshot with...nothing', snapshot)
+      console.log('whats the snapshot with val', snapshot.val())
+      newList.push(snapshot);
       console.log('new list after change', newList)
-      console.log('this is what that order sent back:', snapshot.val())
       that.setState({
         genreList:newList
       })
     })
-    console.log('and its done. state of genrelist is:', this.state.genreList)
   }
 
   render(){
@@ -77,10 +77,10 @@ export default class GenreAdder extends Component{
               <TouchableOpacity
               style={{margin:8, borderRadius:10, height:25, borderColor:'dodgerblue', borderWidth:1, flex:1}}
               >
-              <Text style={{textAlign:'center',letterSpacing: 1.5, padding:4}}>{item}</Text>
+              <Text style={{textAlign:'center',letterSpacing: 1.5, padding:4}}>{item.val()}</Text>
               </TouchableOpacity>    
               }
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item) => item.key}
               >
 </FlatList>
     </List>
