@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
- import FooterTabs from './Footer'
  import InstrumentAdder from './InstrumentAdder'
  import GenreAdder from './GenreAdder'
- import ProfileEditContainer from './ProfileEditContainer'
  import * as firebase from 'firebase';
 
- export default class ProfileEdit extends Component{
+ export default class ProfileEditContainer extends Component{
   constructor(props){
     super(props);
     this.state={
@@ -60,7 +58,6 @@ import { Container, Content, Header, Form, Input, Item, Button,
   }
 
   render(){
-        const { navigate } = this.props.navigation;
         const { toggle } = this.state
         const textValue = toggle?"On":"Off";
         const buttonBg = toggle?"dodgerblue":"white";
@@ -79,7 +76,8 @@ import { Container, Content, Header, Form, Input, Item, Button,
     return(
 
       <Container>
-      <ProfileEditContainer />
+              <InstrumentAdder userId={userId}/>
+              <GenreAdder userId={userId}/>
       </Container>
 
       )
