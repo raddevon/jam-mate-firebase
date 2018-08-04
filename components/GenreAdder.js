@@ -40,7 +40,7 @@ export default class GenreAdder extends Component{
     let ref= firebase.database().ref('/users/'+ this.props.userId).child('genres');
     console.log('whats a ref', ref)
     ref.orderByValue().on('child_added', function(snapshot){
-      console.log('whats the snapshot val', snapshot.val())
+      console.log('whats the snapshot without val', snapshot)
       newList.push(snapshot.val());
       console.log('new list after change', newList)
       console.log('this is what that order sent back:', snapshot.val())
