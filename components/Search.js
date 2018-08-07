@@ -74,23 +74,7 @@ export default class Search extends Component{
                 </Body>
               </Left>
             </CardItem>
-            <CardItem>
-              <Left>
-                <Button transparent>
-                  <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
-                </Button>
-                </Left>
-                <Body>
-                <Button transparent>
-                  <Icon active name="chatbubbles" />
-                  <Text>4 Comments</Text>
-                </Button>
-                </Body>
-                <Right>
-                <Text>11h ago</Text>
-                </Right>
-                </CardItem>
+            
                 </Card>          
               }
               keyExtractor={(item, index) => index}
