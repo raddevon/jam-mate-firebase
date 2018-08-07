@@ -7,18 +7,33 @@ import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Ico
  import * as Animatable from 'react-native-animatable';
 
 
-var instruments1 = {
+var users1 = [
+  {
+    name:'bob test1',
+    instruments:[
+      'guitar',
+      'bass',
+      'drums'
+    ],
+    genres:[
+    'rock',
+    'metal',
+    'bluegrass'
+    ]
+  },
+  {
+  name:'steve test2',
   instruments:[
-    'guitar',
-    'bass',
-    'drums'
+  'bass',
+  'tamborine'
   ],
   genres:[
-  'rock',
-  'metal',
-  'blues'
-  ],
-  };
+  'funk ',
+  'metal ',
+  'blues ',
+  ]
+  }
+]
 
 
 export default class Search extends Component{
@@ -52,42 +67,23 @@ export default class Search extends Component{
 
   render(){
     const { navigate } = this.props.navigation;
-    console.log('what is instruments1', instruments1)
 
     return(
       <Container>
       <Content>
       <H2> Search Page </H2>
       <FlatList 
-              data={instruments1}
+              data={users1}
               renderItem={({item, index}) => 
-            <Card>
-              <CardItem>
-                <Left>
-                <Thumbnail source={{uri: 'Image URL'}} />
-                <Body>
-                <List>
-                  <ListItem>
-                  <Text>{item.instruments}</Text>
-                  </ListItem>
-                </List>
-                </Body>
-              </Left>
-            </CardItem>
-            
-                </Card>          
-              }
-              keyExtractor={(item, index) => index}
-              >
-    </FlatList>
-
-                    <List>
+            <List>
             <ListItem avatar>
               <Left>
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
-                <Text>Kumar Pratik</Text>
+                <Text>{item.name}</Text>
+                {item.instruments.map(r => <Text>{r}</Text>)}  
+                {item.genres.map(r => <Text>{r}</Text>)}  
                 <Text note>Doing what you like will always keep you happy . .</Text>
               </Body>
               <Right>
@@ -95,6 +91,12 @@ export default class Search extends Component{
               </Right>
             </ListItem>
           </List>
+    
+              }
+              keyExtractor={(item, index) => index}
+              >
+    </FlatList>
+
 
       </Content>
 
