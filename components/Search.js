@@ -11,14 +11,14 @@ var users1 = [
   {
     name:'bob test1',
     instruments:[
-      'guitar',
-      'bass',
-      'drums'
+      {89789:'guitar'},
+      {87123:'bass'},
+      {87321:'drums'}
     ],
     genres:[
-    'rock',
-    'metal',
-    'bluegrass'
+      {12345:'rock'},
+      {54321:'metal'},
+      {51423:'bluegrass'}
     ]
   },
   {
@@ -82,8 +82,8 @@ export default class Search extends Component{
               </Left>
               <Body>
                 <Text>{item.name}</Text>
-                {item.instruments.map(r => <Text>{r}</Text>)}  
-                {item.genres.map(r => <Text>{r}</Text>)}  
+                {item.instruments.map(r => <Text key={index}>{r}</Text>)}  
+                {item.genres.map(function(r, index) { <Text key={index}>{r}</Text>})}  
                 <Text note>Doing what you like will always keep you happy . .</Text>
               </Body>
               <Right>
