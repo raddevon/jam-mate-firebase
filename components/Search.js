@@ -95,7 +95,7 @@ export default class Search extends Component{
           </List>
     
               }
-              keyExtractor={(item, index) => index}
+              keyExtractor={(item, index) => index.toString()}
               >
     </FlatList>
 

@@ -37,7 +37,7 @@ constructor(props){
       </ListItem>
       </List>
       }
-      keyExtractor={(item, index) => index}
+      keyExtractor={(item, index) => index.toString()}
       >
       </FlatList>
       </Container>
