@@ -15,23 +15,13 @@ var users1 = [
       {89789:'guitar'},
       {87123:'bass'},
       {87321:'drums'}
-    ],
-    genres:[
-      {12345:'rock'},
-      {54321:'metal'},
-      {51423:'bluegrass'}
     ]
   },
   {
-  name:'steve test2',
+  name:'sally test2',
   instruments:[
-  'bass',
-  'tamborine'
-  ],
-  genres:[
-  'funk ',
-  'metal ',
-  'blues ',
+    {999111:'bass'},
+    {111999:'tamborine'}
   ]
   }
 ]
@@ -70,14 +60,17 @@ export default class Search extends Component{
     const { navigate } = this.props.navigation;
 
     let user = users1[0];
-    console.log('what does user look like', user)
     let instrumentArray = Object.values(user.instruments)
-    console.log('instrumentArray looks like', instrumentArray)
 
     var mappedInstruments = instrumentArray.map( function(instrument, index) {
-        console.log('this is the return of mappedInstruments', index, instrument)
         return <Text key={index}>{instrument}</Text>;
     })
+
+    users1[0].instruments.forEach(function(itemObj, i){
+    Object.keys(itemObj).forEach(function(indiviualItem, j){
+    console.log(i+j+1, itemObj[indiviualItem]);
+  });
+});
 
     return(
       <Container>
