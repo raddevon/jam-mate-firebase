@@ -68,6 +68,17 @@ export default class Search extends Component{
   render(){
     const { navigate } = this.props.navigation;
 
+    let user = users1[0];
+    console.log('what does user look like', user)
+    let instrumentArray = Object.values(user.instruments)
+    console.log('instrumentArray looks like', instrumentArray)
+
+    var mappedInstruments = instrumentArray.map( function(instrument, index) {
+        console.log('this is the return of mappedInstruments', index, instrument)
+        return <Text key={index}>{instrument}</Text>;
+
+    })
+
     return(
       <Container>
       <Content>
@@ -81,9 +92,6 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
-                <Text>{item.name}</Text>
-                {item.instruments.map(r => <Text key={index}>{r}</Text>)}  
-                {item.genres.map(function(r, index) { <Text key={index}>{r}</Text>})}  
                 <Text note>Doing what you like will always keep you happy . .</Text>
               </Body>
               <Right>
