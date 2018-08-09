@@ -3,6 +3,7 @@ import { FlatList, Text, View, StyleSheet, ImageBackground, Alert, Image, Platfo
 import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Icon, Item, Button,
  Label, Left, List, ListItem, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
  import FooterTabs from './Footer';
+ import SearchProfiles from './SearchProfiles';
  import * as firebase from 'firebase';
  import * as Animatable from 'react-native-animatable';
 
@@ -76,7 +77,6 @@ export default class Search extends Component{
     var mappedInstruments = instrumentArray.map( function(instrument, index) {
         console.log('this is the return of mappedInstruments', index, instrument)
         return <Text key={index}>{instrument}</Text>;
-
     })
 
     return(
@@ -92,6 +92,7 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
+              <SearchProfiles instruments={item.instruments} name={item.name}/>
                 <Text note>Doing what you like will always keep you happy . .</Text>
               </Body>
               <Right>
