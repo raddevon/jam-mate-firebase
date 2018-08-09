@@ -17,6 +17,11 @@ constructor(props){
   render(){
     let instrumentArr = this.props.instruments ? Object.values(this.props.instruments) : {};
     console.log('from SearchProfiles - instrumentArr', instrumentArr)
+    let instrumentList = instrumentArr.map( function(instrument, index) {
+        console.log('this is the return of mappedInstruments', index, instrument)
+        return <Text key={index}>{instrument}</Text>;
+    })
+    console.log('here is the instrument list - which is a smaller instrumentArr', instrumentList)
 
 
 
