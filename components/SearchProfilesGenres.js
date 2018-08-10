@@ -6,7 +6,7 @@ import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Ico
  import * as firebase from 'firebase';
  import * as Animatable from 'react-native-animatable';
 
-export default class SearchProfiles extends Component{
+export default class SearchProfilesGenres extends Component{
 constructor(props){
     super(props);
     this.state={
@@ -15,26 +15,24 @@ constructor(props){
   }
 
   render(){
-    let instrumentContainer = this.props.instruments
-    let instrumentArr = [];
-    this.props.instruments.forEach(function(itemObj, i){
+    let genreContainer = this.props.genres
+    let genreArr = [];
+    this.props.genres.forEach(function(itemObj, i){
       Object.keys(itemObj).forEach(function(individualItem, j){
-        instrumentArr.push(itemObj[individualItem])
-        console.log('in searchprofiles', i+j+1, itemObj[individualItem]);
-        console.log('heres your instrumentsarr updated', instrumentArr)
+        genreArr.push(itemObj[individualItem])
+        console.log('heres your genrearr updated', genreArr)
   }
   )
 });
-    console.log('this should be checkpoint for instrumentArr', instrumentArr)
+    console.log('this should be checkpoint for instrumentArr', genreArr)
 
     return(
       <View>
       <Card>
             <CardItem>
               <Body>
-      <H3>{this.props.name}</H3>
       <FlatList
-      data={instrumentArr}
+      data={genreArr}
       renderItem={({item, index})=>
       <List>
       <ListItem>
@@ -43,12 +41,10 @@ constructor(props){
       </ListItem>
       </List>
       }
-      keyExtractor={(item, index) => index.toString()}
       >
       </FlatList>
 
               </Body>
-      <Button ><Text>Message {this.props.name}</Text></Button>
             </CardItem>
           </Card>
       </View>

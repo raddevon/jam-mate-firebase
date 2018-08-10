@@ -3,7 +3,8 @@ import { FlatList, Text, View, StyleSheet, ImageBackground, Alert, Image, Platfo
 import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Icon, Item, Button,
  Label, Left, List, ListItem, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
  import FooterTabs from './Footer';
- import SearchProfiles from './SearchProfiles';
+ import SearchProfilesInstruments from './SearchProfilesInstruments';
+ import SearchProfilesGenres from './SearchProfilesGenres';
  import * as firebase from 'firebase';
  import * as Animatable from 'react-native-animatable';
 
@@ -15,6 +16,11 @@ var users1 = [
       {89789:'guitar'},
       {87123:'bass'},
       {87321:'drums'}
+    ],
+    genres:[
+      {77777:'rock'},
+      {77776:'roll'},
+      {77775:'country'}
     ]
   },
   {
@@ -22,6 +28,10 @@ var users1 = [
   instruments:[
     {999111:'bass'},
     {111999:'tamborine'}
+  ],
+  genres:[
+    {66665:'bluegrass'},
+    {66664:'polka'}
   ]
   }
 ]
@@ -72,6 +82,8 @@ export default class Search extends Component{
   });
 });
 
+    console.log('instruments:', Object.keys(users1[0].instruments))
+
     return(
       <Container>
       <Content>
@@ -85,7 +97,7 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
-              <SearchProfiles instruments={item.instruments} name={item.name}/>
+              <SearchProfilesInstruments instruments={item.instruments} name={item.name} genres={item.genres} />
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
               <Right>
@@ -94,7 +106,7 @@ export default class Search extends Component{
           </List>
     
               }
-              keyExtractor={(item, index) => index.toString()}
+              keyExtractor={(item, index) => 'S'+ index.toString()}
               >
     </FlatList>
 
