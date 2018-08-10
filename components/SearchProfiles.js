@@ -22,9 +22,10 @@ constructor(props){
       instrumentArr.push(itemObj[individualItem])
     console.log('in searchprofiles', i+j+1, itemObj[individualItem]);
     console.log('heres your instrumentsarr updated', instrumentArr)
-    {itemObj[individualItem]}
-  });
+  }
+  )
 });
+    console.log('this should be checkpoint for instrumentArr', instrumentArr)
 
     return(
       <Container>

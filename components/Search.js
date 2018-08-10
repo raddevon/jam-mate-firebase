@@ -86,7 +86,7 @@ export default class Search extends Component{
               </Left>
               <Body>
               <SearchProfiles instruments={item.instruments} name={item.name}/>
-                <Text note>Doing what you like will always keep you happy . .</Text>
+                <Text>Doing what you like will always keep you happy . .</Text>
               </Body>
               <Right>
                 <Text note>3:43 pm</Text>
