@@ -29,6 +29,9 @@ constructor(props){
 
     return(
       <View>
+      <Card>
+            <CardItem>
+              <Body>
       <H3>{this.props.name}</H3>
       <FlatList
       data={instrumentArr}
@@ -36,12 +39,18 @@ constructor(props){
       <List>
       <ListItem>
       <Text> {item} </Text>
+ 
       </ListItem>
       </List>
       }
       keyExtractor={(item, index) => index.toString()}
       >
       </FlatList>
+
+              </Body>
+      <Button ><Text>Message {this.props.name}</Text></Button>
+            </CardItem>
+          </Card>
       </View>
 
     )

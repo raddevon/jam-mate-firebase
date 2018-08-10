@@ -86,10 +86,9 @@ export default class Search extends Component{
               </Left>
               <Body>
               <SearchProfiles instruments={item.instruments} name={item.name}/>
-                <Text>Doing what you like will always keep you happy . .</Text>
+                <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
               <Right>
-                <Button ><Text>Message {item.name}</Text></Button>
               </Right>
             </ListItem>
           </List>
