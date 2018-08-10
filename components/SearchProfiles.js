@@ -18,17 +18,18 @@ constructor(props){
     let instrumentContainer = this.props.instruments
     let instrumentArr = [];
     this.props.instruments.forEach(function(itemObj, i){
-    Object.keys(itemObj).forEach(function(individualItem, j){
-      instrumentArr.push(itemObj[individualItem])
-    console.log('in searchprofiles', i+j+1, itemObj[individualItem]);
-    console.log('heres your instrumentsarr updated', instrumentArr)
+      Object.keys(itemObj).forEach(function(individualItem, j){
+        instrumentArr.push(itemObj[individualItem])
+        console.log('in searchprofiles', i+j+1, itemObj[individualItem]);
+        console.log('heres your instrumentsarr updated', instrumentArr)
   }
   )
 });
     console.log('this should be checkpoint for instrumentArr', instrumentArr)
 
     return(
-      <Container>
+      <View>
+      <H3>{this.props.name}</H3>
       <FlatList
       data={instrumentArr}
       renderItem={({item, index})=>
@@ -41,7 +42,7 @@ constructor(props){
       keyExtractor={(item, index) => index.toString()}
       >
       </FlatList>
-      </Container>
+      </View>
 
     )
   }

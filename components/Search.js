@@ -89,7 +89,7 @@ export default class Search extends Component{
                 <Text>Doing what you like will always keep you happy . .</Text>
               </Body>
               <Right>
-                <Text note>3:43 pm</Text>
+                <Button ><Text>Message {item.name}</Text></Button>
               </Right>
             </ListItem>
           </List>
