@@ -34,7 +34,7 @@ constructor(props){
       <FlatList
       data={genreArr}
       renderItem={({item, index})=>
-      <List>
+      <List listKey={index}>
       <ListItem>
       <Text> {item} </Text>
  
