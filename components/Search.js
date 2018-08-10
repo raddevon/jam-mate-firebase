@@ -90,6 +90,7 @@ export default class Search extends Component{
       <H2> Search Page </H2>
       <FlatList 
               data={users1}
+              key='temp'
               renderItem={({item, index}) => 
             <List>
             <ListItem avatar>
@@ -97,7 +98,8 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
-              <SearchProfilesInstruments instruments={item.instruments} name={item.name} genres={item.genres} />
+              <SearchProfilesInstruments instruments={item.instruments} name={item.name} key={'temp'} />
+              <SearchProfilesGenres genres={item.genres} key={'temporary'}/>
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
               <Right>

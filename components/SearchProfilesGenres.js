@@ -33,6 +33,7 @@ constructor(props){
               <Body>
       <FlatList
       data={genreArr}
+      key={this.props.key}
       renderItem={({item, index})=>
       <List>
       <ListItem>
