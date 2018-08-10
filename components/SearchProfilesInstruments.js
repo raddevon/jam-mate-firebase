@@ -41,7 +41,6 @@ constructor(props){
       <H3>{this.props.name}</H3>
       <FlatList
       data={instrumentArr}
-      key={this.props.key}
       renderItem={({item, index})=>
       <List>
       <ListItem>
@@ -50,6 +49,8 @@ constructor(props){
       </ListItem>
       </List>
       }
+      keyExtractor={(item, index) => 'I'+ index.toString()}
+
       >
       </FlatList>
       
