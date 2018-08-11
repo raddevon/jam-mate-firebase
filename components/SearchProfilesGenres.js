@@ -34,14 +34,14 @@ constructor(props){
       <FlatList
       data={genreArr}
       renderItem={({item, index})=>
-      <List listKey={index}>
+      <List>
       <ListItem>
       <Text> {item} </Text>
  
       </ListItem>
       </List>
       }
-      keyExtractor={(item, index) => 'G'+ index.toString()}
+      keyExtractor={(item, index) => 'a'+index.toString()}
 
       >
       </FlatList>
