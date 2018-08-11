@@ -97,8 +97,8 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
-              <SearchProfilesInstruments instruments={item.instruments} name={item.name} />
-              <SearchProfilesGenres genres={item.genres}/>
+              <SearchProfilesInstruments instruments={item.instruments} name={item.name} listKey='instruments' />
+              <SearchProfilesGenres genres={item.genres} listKey='genres' />
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
               <Right>
@@ -107,7 +107,6 @@ export default class Search extends Component{
           </List>
     
               }
-              keyExtractor={(item, index) => 'S'+ index.toString()}
               >
     </FlatList>
 

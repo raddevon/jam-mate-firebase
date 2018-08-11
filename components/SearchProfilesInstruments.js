@@ -42,7 +42,7 @@ constructor(props){
       <FlatList
       data={instrumentArr}
       renderItem={({item, index})=>
-      <List listKey={index}>
+      <List>
       <ListItem>
       <Text> {item} </Text>
  
