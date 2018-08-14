@@ -82,7 +82,7 @@ export default class Search extends Component{
   });
 });
 
-    console.log('instruments:', Object.keys(users1[0].instruments))
+    console.log('instruments abc:', Object.keys(users1[0].instruments))
 
     return(
       <Container>
@@ -90,15 +90,18 @@ export default class Search extends Component{
       <H2> Search Page </H2>
       <FlatList 
               data={users1}
+              keyExtractor={(item, index) => item.name }
               renderItem={({item, index}) => 
-            <List>
+            <List
+              listKey={index}
+              >
             <ListItem avatar>
               <Left>
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
-              <SearchProfilesInstruments instruments={item.instruments} name={item.name} listKey='instruments' />
-              <SearchProfilesGenres genres={item.genres} listKey='genres' />
+                <SearchProfilesInstruments instruments={item.instruments} genres={item.genres} name={item.name} />
+
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
               <Right>
