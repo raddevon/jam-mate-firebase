@@ -67,3 +67,11 @@ constructor(props){
     )
   }
 }
+
+SearchProfilesInstruments.defaultProps = {
+  instruments: [],
+  genres:[],
+  firstname:[],
+  lastname:[],
+  name:[]
+};

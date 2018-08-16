@@ -41,7 +41,7 @@ export default class Search extends Component{
   constructor(props){
     super(props);
     this.state={
-
+      usersArray: []
     }
   }
   
@@ -57,12 +57,26 @@ export default class Search extends Component{
     },
   });
 
-  componentWillMount() {
+  componentWillMount= () =>{
 
   }
   
   componentDidMount(){
-
+    let newList=[];
+    let that = this;
+    let ref = firebase.database().ref('/users/');
+    ref.orderByKey().on("child_added", function(snapshot) {
+      // console.log(snapshot.val(), typeof snapshot.val());
+      console.log('each snapshot looks like', snapshot)
+      newList.push(snapshot)
+      console.log('things getting pushed?', newList)
+      that.setState({
+        usersArray: newList,
+      })
+      console.log('after each setstate', that.state.usersArray)
+    })
+    console.log('users array check!', that.state.usersArray)
+    console.log('did mount check on usersArray', this.state.usersArray)
   }
 
 
@@ -100,7 +114,7 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
-                <SearchProfilesInstruments instruments={item.instruments} genres={item.genres} name={item.name} />
+                <SearchProfilesInstruments instruments={item.instruments|| []} genres={item.genres||[]} name={item.name||[]} />
 
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
