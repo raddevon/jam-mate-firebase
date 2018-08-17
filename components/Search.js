@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FlatList, Text, View, StyleSheet, ImageBackground, Alert, Image, Platform, TouchableOpacity} from 'react-native';
 import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Icon, Item, Button,
- Label, Left, List, ListItem, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
+ Label, Left, List, ListItem, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail, Ul, Li} from 'native-base';
  import FooterTabs from './Footer';
  import SearchProfilesInstruments from './SearchProfilesInstruments';
  import SearchProfilesGenres from './SearchProfilesGenres';
@@ -43,6 +43,9 @@ export default class Search extends Component{
     this.state={
       usersArray: []
     }
+
+
+
   }
   
   static navigationOptions = ({navigation}) => ({
@@ -61,15 +64,23 @@ export default class Search extends Component{
 
   }
   
+
   componentDidMount(){
     let newList=[];
     let that = this;
     let ref = firebase.database().ref('/users/');
-    ref.orderByKey().on("child_added", function(snapshot) {
+    ref.orderByKey().once("value").then(function(snapshot) {
+      console.log('higher level, this is what snapshot looks like', snapshot)
+      console.log('higher level, this is what snapshot KEY looks like', snapshot.key)
+      snapshot.forEach(function(userSnapshot){
+        console.log('userSnapShot', userSnapshot)
+        console.log('usersnapshot . key', userSnapshot.key)
+      })
       // console.log(snapshot.val(), typeof snapshot.val());
       console.log('each snapshot looks like', snapshot)
-      newList.push(snapshot)
-      console.log('things getting pushed?', newList)
+      console.log('trying to grab user id 1', snapshot.users)
+      console.log('newList.push(snapshot)')
+      console.log('things getting pushed?')
       that.setState({
         usersArray: newList,
       })
@@ -82,9 +93,11 @@ export default class Search extends Component{
 
   render(){
     const { navigate } = this.props.navigation;
+    const { items = [] } = this.props;
+
 
     let user = users1[0];
-    let instrumentArray = Object.values(user.instruments)
+    let instrumentArray = Object.keys(user.instruments)
 
     var mappedInstruments = instrumentArray.map( function(instrument, index) {
         return <Text key={index}>{instrument}</Text>;
@@ -103,8 +116,8 @@ export default class Search extends Component{
       <Content>
       <H2> Search Page </H2>
       <FlatList 
-              data={users1}
-              keyExtractor={(item, index) => item.name }
+              data={this.state.usersArray}
+              keyExtractor={(item, index) => item.firstname }
               renderItem={({item, index}) => 
             <List
               listKey={index}
@@ -126,7 +139,6 @@ export default class Search extends Component{
               }
               >
     </FlatList>
-
 
       </Content>
 
