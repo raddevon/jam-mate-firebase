@@ -70,24 +70,23 @@ export default class Search extends Component{
     let that = this;
     let ref = firebase.database().ref('/users/');
     ref.orderByKey().once("value").then(function(snapshot) {
-      console.log('higher level, this is what snapshot looks like', snapshot)
-      console.log('higher level, this is what snapshot KEY looks like', snapshot.key)
       snapshot.forEach(function(userSnapshot){
-        console.log('userSnapShot', userSnapshot)
-        console.log('usersnapshot . key', userSnapshot.key)
+      let myObj = {}
+        console.log('userSnapShot')
+      myObj['userid'] = userSnapshot.key
+      myObj['data'] = userSnapshot
+      newList.push(myObj)
+        console.log('how did the newList push end up?')
       })
-      // console.log(snapshot.val(), typeof snapshot.val());
-      console.log('each snapshot looks like', snapshot)
-      console.log('trying to grab user id 1', snapshot.users)
       console.log('newList.push(snapshot)')
       console.log('things getting pushed?')
       that.setState({
         usersArray: newList,
       })
-      console.log('after each setstate', that.state.usersArray)
+      console.log('after each setstate')
     })
-    console.log('users array check!', that.state.usersArray)
-    console.log('did mount check on usersArray', this.state.usersArray)
+    console.log('users array check!')
+    console.log('did mount check on usersArray')
   }
 
 
@@ -105,11 +104,11 @@ export default class Search extends Component{
 
     users1[0].instruments.forEach(function(itemObj, i){
     Object.keys(itemObj).forEach(function(indiviualItem, j){
-    console.log(i+j+1, itemObj[indiviualItem]);
+    console.log('i+j+1, itemObj[indiviualItem]');
   });
 });
 
-    console.log('instruments abc:', Object.keys(users1[0].instruments))
+    console.log('object.keys(users1[0].instruments')
 
     return(
       <Container>
@@ -117,7 +116,7 @@ export default class Search extends Component{
       <H2> Search Page </H2>
       <FlatList 
               data={this.state.usersArray}
-              keyExtractor={(item, index) => item.firstname }
+              keyExtractor={(item, index) => item.userid}
               renderItem={({item, index}) => 
             <List
               listKey={index}
@@ -127,6 +126,7 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: 'Image URL' }} />
               </Left>
               <Body>
+              <Text>{item.userid}</Text>
                 <SearchProfilesInstruments instruments={item.instruments|| []} genres={item.genres||[]} name={item.name||[]} />
 
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
