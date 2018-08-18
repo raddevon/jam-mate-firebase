@@ -92,7 +92,6 @@ export default class Search extends Component{
 
   render(){
     const { navigate } = this.props.navigation;
-    const { items = [] } = this.props;
 
 
     let user = users1[0];
@@ -103,12 +102,21 @@ export default class Search extends Component{
     })
 
     users1[0].instruments.forEach(function(itemObj, i){
-    Object.keys(itemObj).forEach(function(indiviualItem, j){
-    console.log('i+j+1, itemObj[indiviualItem]');
-  });
-});
+      Object.keys(itemObj).forEach(function(indiviualItem, j){
+      console.log('i+j+1, itemObj[indiviualItem]');
+      });
+    });
+    console.log('users array?', this.state.usersArray[0])
 
     console.log('object.keys(users1[0].instruments')
+    console.log('below')
+    for (key in this.state.usersArray[0]){
+      for (deeper in key){
+        console.log('this is...deeper?', deeper)
+      }
+      console.log('here is a key', key)
+    }
+
 
     return(
       <Container>
@@ -116,6 +124,7 @@ export default class Search extends Component{
       <H2> Search Page </H2>
       <FlatList 
               data={this.state.usersArray}
+              extraData={this.state.usersArray}
               keyExtractor={(item, index) => item.userid}
               renderItem={({item, index}) => 
             <List
@@ -123,10 +132,11 @@ export default class Search extends Component{
               >
             <ListItem avatar>
               <Left>
-                <Thumbnail source={{ uri: 'Image URL' }} />
+                <Thumbnail source={{ uri: item.data.userphoto }} />
               </Left>
               <Body>
               <Text>{item.userid}</Text>
+
                 <SearchProfilesInstruments instruments={item.instruments|| []} genres={item.genres||[]} name={item.name||[]} />
 
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
