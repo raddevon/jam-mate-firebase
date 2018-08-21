@@ -15,23 +15,25 @@ constructor(props){
   }
 
   componentDidMount = () =>{
-    console.log('this props general  ', this.props.general)
-    console.log('can o worms Object.values(this.props.general)')
-    console.log('this props general . data  instruments')
+    // console.log('this.props.general', this.props.general)
+    // console.log('this.props.general.firstname', this.props.general.firstname)
+
+
+    // console.log('can o worms Object.values(this.props.general)')
+    // console.log('this props general . data  instruments')
         
+    // console.log('working?')
+    // for (let [key, val] in this.props.general){
+    //       console.log('this.props.general[key]')
+    //       console.log('just the val')
+    //     }
   }
 
   render(){
-    console.log('working?')
-    for (key in this.props.general.instruments){
-          console.log('this.props.general[key]')
-
-          console.log('just the key', key.val())
-        }
 
 
     let instrumentContainer = this.props.instruments
-    console.log('what is passed for instruments', this.props.instruments)
+    // console.log('what is passed for instruments', this.props.instruments)
     let instrumentArr = [];
     this.props.instruments.forEach(function(itemObj, i){
       Object.keys(itemObj).forEach(function(individualItem, j){
@@ -52,7 +54,7 @@ constructor(props){
         instrumentArr.push(myObj);
       });
     });  
-    console.log('this should be checkpoint for instrumentArr', instrumentArr)
+    // console.log('this should be checkpoint for instrumentArr', instrumentArr)
 
     return(
       <View>
