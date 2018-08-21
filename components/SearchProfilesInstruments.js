@@ -14,9 +14,24 @@ constructor(props){
     }
   }
 
+  componentDidMount = () =>{
+    console.log('this props general  ', this.props.general)
+    console.log('can o worms Object.values(this.props.general)')
+    console.log('this props general . data  instruments')
+        
+  }
+
   render(){
+    console.log('working?')
+    for (key in this.props.general.instruments){
+          console.log('this.props.general[key]')
+
+          console.log('just the key', key.val())
+        }
+
+
     let instrumentContainer = this.props.instruments
-    console.log('this props instruments', this.props.instruments)
+    console.log('what is passed for instruments', this.props.instruments)
     let instrumentArr = [];
     this.props.instruments.forEach(function(itemObj, i){
       Object.keys(itemObj).forEach(function(individualItem, j){

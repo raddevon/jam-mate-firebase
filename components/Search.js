@@ -61,18 +61,18 @@ export default class Search extends Component{
   });
 
   componentWillMount= () =>{
-
   }
   
 
-  componentDidMount(){
+  componentDidMount=()=>{
     let newList=[];
     let that = this;
     let ref = firebase.database().ref('/users/');
     ref.orderByKey().once("value").then(function(snapshot) {
       snapshot.forEach(function(userSnapshot){
       let myObj = {}
-        console.log('userSnapShot')
+        console.log('userSnapShot', userSnapshot)
+        console.log('userSnapShot.data')
       myObj['userid'] = userSnapshot.key
       myObj['data'] = userSnapshot
       newList.push(myObj)
@@ -83,20 +83,14 @@ export default class Search extends Component{
       that.setState({
         usersArray: newList,
       })
-      console.log('after each setstate')
     })
-    console.log('users array check!')
-    console.log('did mount check on usersArray')
   }
 
 
   render(){
     const { navigate } = this.props.navigation;
-
-
     let user = users1[0];
     let instrumentArray = Object.keys(user.instruments)
-
     var mappedInstruments = instrumentArray.map( function(instrument, index) {
         return <Text key={index}>{instrument}</Text>;
     })
@@ -106,17 +100,16 @@ export default class Search extends Component{
       console.log('i+j+1, itemObj[indiviualItem]');
       });
     });
-    console.log('users array?', this.state.usersArray[0])
+    console.log('this.state.usersArray[0]')
 
     console.log('object.keys(users1[0].instruments')
-    console.log('below')
     for (key in this.state.usersArray[0]){
-      for (deeper in key){
-        console.log('this is...deeper?', deeper)
+      console.log('trying to log instruments', key.instruments)
+      for (deeper in this.state.usersArray[0]){
+        console.log('this is deeper')
       }
-      console.log('here is a key', key)
+      console.log('here is a key')
     }
-
 
     return(
       <Container>
@@ -125,10 +118,10 @@ export default class Search extends Component{
       <FlatList 
               data={this.state.usersArray}
               extraData={this.state.usersArray}
-              keyExtractor={(item, index) => item.userid}
+              keyExtractor={(item) => item.userid}
               renderItem={({item, index}) => 
             <List
-              listKey={index}
+              listKey={item.userid}
               >
             <ListItem avatar>
               <Left>
@@ -137,7 +130,7 @@ export default class Search extends Component{
               <Body>
               <Text>{item.userid}</Text>
 
-                <SearchProfilesInstruments instruments={item.instruments|| []} genres={item.genres||[]} name={item.name||[]} />
+                <SearchProfilesInstruments general={item.data} instruments={item.data.instruments|| []} genres={item.data.genres||[]} name={item.data.firstname||[]} />
 
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
