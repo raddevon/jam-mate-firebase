@@ -19,7 +19,9 @@ constructor(props){
     let genreArr = [];
     this.props.genres.forEach(function(itemObj, i){
       Object.keys(itemObj).forEach(function(individualItem, j){
-        genreArr.push(itemObj[individualItem])
+        let myObj = {}
+        myObj['key'] = itemObj[individualItem]
+        genreArr.push(myObj)
         console.log('heres your genrearr updated', genreArr)
   }
   )
@@ -28,27 +30,25 @@ constructor(props){
 
     return(
       <View>
-      <Card>
-            <CardItem>
-              <Body>
-      <FlatList
-      data={genreArr}
-      renderItem={({item, index})=>
-      <List>
-      <ListItem>
-      <Text> {item} </Text>
- 
-      </ListItem>
-      </List>
-      }
-      keyExtractor={(item, index) => 'a'+index.toString()}
+        <Card>
+          <CardItem>
+            <Body>
+              <FlatList
+                data={genreArr}
+                renderItem={({item, index})=>
+                { return (<List>
+                            <ListItem>
+                              <Text> {item.key} </Text>
+                            </ListItem>
+                          </List>)}
 
-      >
-      </FlatList>
-
-              </Body>
-            </CardItem>
-          </Card>
+                }
+                keyExtractor={(item, index) => item.key}
+              >
+              </FlatList>
+            </Body>
+          </CardItem>
+        </Card>
       </View>
 
     )
