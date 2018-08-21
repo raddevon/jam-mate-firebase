@@ -6,7 +6,7 @@ import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Ico
  import * as firebase from 'firebase';
  import * as Animatable from 'react-native-animatable';
 
-export default class SearchProfilesInstruments extends Component{
+export default class SearchProfilesCard extends Component{
 constructor(props){
     super(props);
     this.state={
@@ -83,7 +83,7 @@ constructor(props){
   }
 }
 
-SearchProfilesInstruments.defaultProps = {
+SearchProfilesCard.defaultProps = {
   instruments: [],
   genres:[],
   firstname:[],

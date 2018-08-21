@@ -3,7 +3,7 @@ import { FlatList, Text, View, StyleSheet, ImageBackground, Alert, Image, Platfo
 import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Icon, Item, Button,
  Label, Left, List, ListItem, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail, Ul, Li} from 'native-base';
  import FooterTabs from './Footer';
- import SearchProfilesInstruments from './SearchProfilesInstruments';
+ import SearchProfilesCard from './SearchProfilesCard';
  import SearchProfilesGenres from './SearchProfilesGenres';
  import * as firebase from 'firebase';
  import * as Animatable from 'react-native-animatable';
@@ -130,7 +130,7 @@ export default class Search extends Component{
               <Body>
               <Text>{item.userid}</Text>
 
-                <SearchProfilesInstruments general={item.data} instruments={item.data.instruments|| []} genres={item.data.genres||[]} name={item.data.firstname||[]} />
+                <SearchProfilesCard general={item.data} instruments={item.data.instruments|| []} genres={item.data.genres||[]} name={item.data.firstname||[]} />
 
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
