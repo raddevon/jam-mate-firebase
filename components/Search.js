@@ -84,39 +84,90 @@ export default class Search extends Component{
       })
     })
   }
+//     const results = {}
+//     users.forEach(function(obj, idx){
+//     console.log(obj, idx);
+// })
 
+//     console.log('messing with users instead of state', users)
+//     console.log('looping through users data instruments', users.forEach((item=>
+//       item.data.forEach((data=>
+//         console.log('data instruments')
+//       )
+//       )
+//     ))
+//     )
+    // console.log('Object.entries(this.state.usersArray).map(item => ({...item[1], key: item[0]}))');
+
+    // console.log('users array state', this.state.usersArray)
+
+
+ _getArray=(users)=>{
+  console.log('what is users?', users)
+  let results = [];
+
+  // Loop through each user
+  users.forEach(function(originalObj, idx){
+    let obj = originalObj.data.toJSON();
+    
+    // Get the genres
+    let genres = [];
+    for (let key in obj.genres){
+      genres.push(obj.genres[key]);
+    }
+
+    // Get the instruments
+    let instruments = [];
+    for (let key in obj.instruments){
+      instruments.push(obj.instruments[key]);
+    }
+
+    // Add the result to the table
+    results.push({
+      userid: originalObj.userid,
+      key: idx, 
+      firstname: obj.firstname, 
+      lastname: obj.lastname, 
+      zipcode: obj.zipcode, 
+      userphoto: obj.userphoto || 'http://temp.changeme.com', 
+      genres: genres, 
+      instruments: instruments});
+  });
+
+  return results;
+}
 
   render(){
     const { navigate } = this.props.navigation;
+    let users = this.state.usersArray
+    var results = this._getArray(users);
+    console.log('results is equal to', results);
 
-    console.log('Object.entries(this.state.usersArray).map(item => ({...item[1], key: item[0]}))');
 
-    console.log('users array state', this.state.usersArray)
+    // users1[0].instruments.forEach(function(itemObj, i){
+    //   Object.keys(itemObj).forEach(function(indiviualItem, j){
+    //   console.log('i+j+1, itemObj[indiviualItem]');
+    //   });
+    // });
+    // console.log('this.state.usersArray[0]')
 
-    
-    users1[0].instruments.forEach(function(itemObj, i){
-      Object.keys(itemObj).forEach(function(indiviualItem, j){
-      console.log('i+j+1, itemObj[indiviualItem]');
-      });
-    });
-    console.log('this.state.usersArray[0]')
-
-    console.log('object.keys(users1[0].instruments')
-    for (let [key, val] in this.state.usersArray[0]){
-      console.log('trying to log instruments', key.instruments)
-      for (deeper in this.state.usersArray[0]){
-        console.log('this is deeper')
-      }
-      console.log('here is a key')
-    }
+    // console.log('object.keys(users1[0].instruments')
+    // for (let key in this.state.usersArray[0]){
+    //   console.log('trying to log instruments', key.instruments)
+    //   console.log('key in usersArray', this.state.usersArray[key])
+    //   for (deeper in this.state.usersArray[0]){
+    //     console.log('this is deeper')
+    //   }
+    //   console.log('here is a key')
+    // }
 
     return(
       <Container>
       <Content>
       <H2> Search Page </H2>
       <FlatList 
-              data={this.state.usersArray}
-              extraData={this.state.usersArray}
+              data={results}
+              extraData={results}
               keyExtractor={(item) => item.userid}
               renderItem={({item, index}) => 
             <List
@@ -124,13 +175,13 @@ export default class Search extends Component{
               >
             <ListItem avatar>
               <Left>
-                <Thumbnail source={{ uri: item.data.userphoto }} />
+                <Thumbnail source={{ uri: item.userphoto }} />
               </Left>
               <Body>
               <Text>{item.userid}</Text>
-              <Text>{item.data.firstname}</Text>
+              <Text>{item.firstname}</Text>
 
-                <SearchProfilesCard general={item.data} instruments={item.data.instruments|| []} genres={item.data.genres||[]} name={item.data.firstname||[]} />
+                <SearchProfilesCard general={item} instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
 
                 <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
               </Body>
