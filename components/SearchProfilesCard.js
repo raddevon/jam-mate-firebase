@@ -32,28 +32,28 @@ constructor(props){
   render(){
 
 
-    let instrumentContainer = this.props.instruments
+    let combo = ["INSTRUMENTS"].concat(this.props.instruments, [" ", "GENRES"], this.props.genres);
     // console.log('what is passed for instruments', this.props.instruments)
-    let instrumentArr = [];
-    this.props.instruments.forEach(function(itemObj, i){
-      Object.keys(itemObj).forEach(function(individualItem, j){
-        let myObj = {};
-        myObj['key'] = itemObj[individualItem];
-        myObj['color'] = 'blue';
-        myObj['type'] = 'instrument';
-        instrumentArr.push(myObj);
-      });
-    });   
-    instrumentArr.push({'key': '', 'color': '', 'type': ''});
-    this.props.genres.forEach(function(itemObj, i){
-      Object.keys(itemObj).forEach(function(individualItem, j){
-        let myObj = {}
-        myObj['key'] = itemObj[individualItem];
-        myObj['color'] = 'green';
-        myObj['type'] = 'genre';
-        instrumentArr.push(myObj);
-      });
-    });  
+    // let instrumentArr = [];
+    // this.props.instruments.forEach(function(itemObj, i){
+    //   Object.keys(itemObj).forEach(function(individualItem, j){
+    //     let myObj = {};
+    //     myObj['key'] = itemObj[individualItem];
+    //     myObj['color'] = 'blue';
+    //     myObj['type'] = 'instrument';
+    //     instrumentArr.push(myObj);
+    //   });
+    // });   
+    // instrumentArr.push({'key': '', 'color': '', 'type': ''});
+    // this.props.genres.forEach(function(itemObj, i){
+    //   Object.keys(itemObj).forEach(function(individualItem, j){
+    //     let myObj = {}
+    //     myObj['key'] = itemObj[individualItem];
+    //     myObj['color'] = 'green';
+    //     myObj['type'] = 'genre';
+    //     instrumentArr.push(myObj);
+    //   });
+    // });  
     // console.log('this should be checkpoint for instrumentArr', instrumentArr)
 
     return(
@@ -63,13 +63,14 @@ constructor(props){
             <Body>
               <H3>{this.props.name}</H3>
               <FlatList
-                data={instrumentArr}
+                data={combo}
+                keyExtractor={(item, index)=> index.toString()} 
                 renderItem={({item, index}) => {
                   return (
                     <List>
-                    <ListItem listKey={'a' + index.toString()}>
-                      <Text>{item.type} {item.key}</Text>
-                    </ListItem>
+                      <ListItem listKey={'a' + index.toString()}>
+                        <Text>{item}</Text>
+                      </ListItem>
                     </List>
                   );
                 }}>
