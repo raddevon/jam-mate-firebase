@@ -178,8 +178,6 @@ export default class Search extends Component{
                 <Thumbnail source={{ uri: item.userphoto }} />
               </Left>
               <Body>
-              <Text>{item.userid}</Text>
-              <Text>{item.firstname}</Text>
 
                 <SearchProfilesCard general={item} instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
 
@@ -198,13 +196,21 @@ export default class Search extends Component{
 
           <Footer>
           <FooterTab>
-            <Button >
+            <Button
+              onPress={
+              () => navigate('Home')
+              }
+            >
               <Text>Profile</Text>
             </Button>
             <Button>
               <Text>Search</Text>
             </Button>
-            <Button>
+            <Button
+              onPress={
+                ()=> navigate('Messages')
+              }
+            >
               <Text>Messages</Text>
             </Button>
             <Button>

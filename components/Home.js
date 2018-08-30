@@ -5,8 +5,11 @@ import { Container, Content, Header, Form, Input, Icon, Item, Button,
  import FooterTabs from './Footer';
  import ProfileTop from './ProfileTop';
  import Instruments from './Instruments';
+ import Messages from './Messages';
  import Genres from './Genres'
  import * as firebase from 'firebase';
+ import * as Animatable from 'react-native-animatable';
+
 
 
 
@@ -144,12 +147,16 @@ export default class Home extends Component{
             </Button>
             <Button
             onPress={
-              () => this._getCity()
+              () => this._getCity().then(()=> navigate('Search'))
             }
             >
               <Text>Search</Text>
             </Button>
-            <Button>
+            <Button
+              onPress={
+              () => navigate('Messages')
+              }
+            >
               <Text>Messages</Text>
             </Button>
             <Button>
