@@ -7,6 +7,8 @@ import { Container, Content, Header, Form, Input, Icon, Item, Button,
  import Instruments from './Instruments';
  import Genres from './Genres'
  import * as firebase from 'firebase';
+ import * as Animatable from 'react-native-animatable';
+
 
 
 
@@ -144,7 +146,7 @@ export default class Home extends Component{
             </Button>
             <Button
             onPress={
-              () => this._getCity()
+              () => this._getCity().then(()=> navigate('Search'))
             }
             >
               <Text>Search</Text>

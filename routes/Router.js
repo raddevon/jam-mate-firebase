@@ -16,7 +16,7 @@ const Router = createStackNavigator({
     Search: Search,
   },
   {
-    initialRouteName: 'Search',
+    initialRouteName: 'Landing',
   }  
 );
 
