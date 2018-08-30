@@ -196,7 +196,11 @@ export default class Search extends Component{
 
           <Footer>
           <FooterTab>
-            <Button >
+            <Button
+              onPress={
+              () => navigate('Home')
+              }
+            >
               <Text>Profile</Text>
             </Button>
             <Button>
