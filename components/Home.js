@@ -26,6 +26,7 @@ export default class Home extends Component{
       errorMessage: null,
       usercityobject: null,
       instrumentsList:[],
+      genresList:[],
     }
   }
   
@@ -115,6 +116,18 @@ export default class Home extends Component{
       )
     }  
     ));
+    firebase.database().ref('/users/'+ userId).child('genres').once('value').then((function(genres){
+      let jGenres = genres.toJSON()
+      let genreList = []
+      for (let key in jGenres){
+      genreList.push(jGenres[key]);
+    }
+      console.log('here is the users genres', genreList)
+      that.setState(
+        {genresList:genreList}
+      )
+    }  
+    ));
 
   }
 
@@ -148,7 +161,7 @@ export default class Home extends Component{
                 <Instruments instruments={this.state.instrumentsList} />
               </Col>
               <Col>
-                <Genres />
+                <Genres genres={this.state.genresList}/>
               </Col>
             </Row>
         </Grid>
