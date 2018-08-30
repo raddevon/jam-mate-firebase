@@ -18,7 +18,7 @@ const Router = createStackNavigator({
     Messages:Messages,
   },
   {
-    initialRouteName: 'Landing',
+    initialRouteName: 'Search',
   }  
 );
 

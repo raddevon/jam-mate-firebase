@@ -17,7 +17,7 @@ export default class Home extends Component{
   constructor(props){
     super(props);
     this.state={
-      username:firebase.auth().currentUser.displayName || null,
+      username:firebase.auth().currentUser.displayName || '',
       user:firebase.auth().currentUser || null,
       userphoto:firebase.auth().currentUser.photoURL || null,
       userzip:null,

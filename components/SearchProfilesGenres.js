@@ -16,17 +16,16 @@ constructor(props){
 
   render(){
     let genreContainer = this.props.genres
-    let genreArr = [];
-    this.props.genres.forEach(function(itemObj, i){
-      Object.keys(itemObj).forEach(function(individualItem, j){
-        let myObj = {}
-        myObj['key'] = itemObj[individualItem]
-        genreArr.push(myObj)
-        console.log('heres your genrearr updated', genreArr)
-  }
-  )
-});
-    console.log('this should be checkpoint for instrumentArr', genreArr)
+//     let genreArr = [];
+//     this.props.genres.forEach(function(itemObj, i){
+//       Object.keys(itemObj).forEach(function(individualItem, j){
+//         let myObj = {}
+//         myObj['key'] = itemObj[individualItem]
+//         genreArr.push(myObj)
+//         console.log('heres your genrearr updated', genreArr)
+//   }
+//   )
+// });
 
     return(
       <View>
@@ -34,16 +33,18 @@ constructor(props){
           <CardItem>
             <Body>
               <FlatList
-                data={genreArr}
+                data={genreContainer}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({item, index})=>
-                { return (<List>
-                            <ListItem>
-                              <Text> {item.key} </Text>
-                            </ListItem>
-                          </List>)}
-
-                }
-                keyExtractor={(item, index) => item.key}
+                  { 
+                    return (
+                      <List>
+                        <ListItem listKey={'c' + index.toString()}>
+                          <Text>{item}</Text>
+                        </ListItem>
+                      </List>
+                      );
+                  }}
               >
               </FlatList>
             </Body>

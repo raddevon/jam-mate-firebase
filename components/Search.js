@@ -17,7 +17,7 @@ export default class Search extends Component{
   }
   
   static navigationOptions = ({navigation}) => ({
-    title: 'Home',
+    title: 'Search',
     headerLeft: null,
     headerStyle: {
       backgroundColor: '#007bff',
@@ -102,7 +102,7 @@ export default class Search extends Component{
                       <Thumbnail source={{ uri: item.userphoto }} />
                     </Left>
                     <Body>
-                      <SearchProfilesCard general={item} instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
+                      <SearchProfilesCard instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
                       <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
                     </Body>
                     <Right>
