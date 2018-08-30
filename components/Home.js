@@ -17,9 +17,9 @@ export default class Home extends Component{
   constructor(props){
     super(props);
     this.state={
-      username:firebase.auth().currentUser.displayName,
-      user:firebase.auth().currentUser,
-      userphoto:firebase.auth().currentUser.photoURL,
+      username:firebase.auth().currentUser.displayName || null,
+      user:firebase.auth().currentUser || null,
+      userphoto:firebase.auth().currentUser.photoURL || null,
       userzip:null,
       uid:firebase.auth().currentUser.uid,
       location: null,
@@ -55,9 +55,7 @@ export default class Home extends Component{
       let that = this;
     Expo.Location.reverseGeocodeAsync(this.state.usercityobject).then(function(result){
       let reverseResult = result
-      console.log('here is what will be saved to state: ', reverseResult[0].postalCode)
       that.setState({ userzip: reverseResult[0].postalCode })
-      console.log('and...here is the stats of userzip:', that.state.userzip)
       let userId = firebase.auth().currentUser.uid;
       firebase.database().ref('users').child(userId).child('zipcode').set(reverseResult[0].postalCode)
     })
