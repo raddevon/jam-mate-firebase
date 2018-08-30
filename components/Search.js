@@ -206,7 +206,11 @@ export default class Search extends Component{
             <Button>
               <Text>Search</Text>
             </Button>
-            <Button>
+            <Button
+              onPress={
+                ()=> navigate('Messages')
+              }
+            >
               <Text>Messages</Text>
             </Button>
             <Button>
