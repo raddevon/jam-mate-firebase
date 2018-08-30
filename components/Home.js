@@ -25,6 +25,7 @@ export default class Home extends Component{
       location: null,
       errorMessage: null,
       usercityobject: null,
+      instrumentsList:[],
     }
   }
   
@@ -102,6 +103,19 @@ export default class Home extends Component{
       that.setState({userphoto:userphoto});
   // ...
     }));
+    firebase.database().ref('/users/'+ userId).child('instruments').once('value').then((function(instruments){
+      let jInstruments = instruments.toJSON()
+      let instrumentList = []
+      for (let key in jInstruments){
+      instrumentList.push(jInstruments[key]);
+    }
+      console.log('here is the users instruments', instrumentList)
+      that.setState(
+        {instrumentsList:instrumentList}
+      )
+    }  
+    ));
+
   }
 
   
@@ -131,7 +145,7 @@ export default class Home extends Component{
             </Row>
             <Row style={{ backgroundColor: '#2E0094'}}>
               <Col>
-                <Instruments />
+                <Instruments instruments={this.state.instrumentsList} />
               </Col>
               <Col>
                 <Genres />
