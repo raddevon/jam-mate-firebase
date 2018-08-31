@@ -9,7 +9,6 @@ export default class Instruments extends Component{
   }
 
   componentDidMount(){
-    console.log('inside instruments, this is props instruments', this.props.instruments)
   }
 
   render(){

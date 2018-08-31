@@ -120,9 +120,11 @@ export default class Search extends Component{
           () => navigate('Home')
           }
         >
+        <Icon name="contact" />
           <Text>Profile</Text>
         </Button>
         <Button>
+        <Icon name="people" />
           <Text>Search</Text>
         </Button>
         <Button
@@ -130,11 +132,10 @@ export default class Search extends Component{
             ()=> navigate('Messages')
           }
         >
+        <Icon name="chatboxes" />
           <Text>Messages</Text>
         </Button>
-        <Button>
-          <Text>somethingelse</Text>
-        </Button>
+        
       </FooterTab>
       </Footer>
       </Container>

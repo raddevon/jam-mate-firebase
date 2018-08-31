@@ -110,7 +110,6 @@ export default class Home extends Component{
       for (let key in jInstruments){
       instrumentList.push(jInstruments[key]);
     }
-      console.log('here is the users instruments', instrumentList)
       that.setState(
         {instrumentsList:instrumentList}
       )
@@ -122,7 +121,6 @@ export default class Home extends Component{
       for (let key in jGenres){
       genreList.push(jGenres[key]);
     }
-      console.log('here is the users genres', genreList)
       that.setState(
         {genresList:genreList}
       )
