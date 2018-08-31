@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, Platform, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Form, Input, Icon, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
- import FooterTabs from './Footer';
+ import FooterNav from './FooterNav';
  import ProfileTop from './ProfileTop';
  import Instruments from './Instruments';
  import Messages from './Messages';
@@ -164,29 +164,32 @@ export default class Home extends Component{
             </Row>
         </Grid>
           <Footer>
-          <FooterTab>
-            <Button >
-              <Text>Profile</Text>
-            </Button>
-            <Button
-            onPress={
-              () => this._getCity().then(()=> navigate('Search'))
-            }
-            >
-              <Text>Search</Text>
-            </Button>
-            <Button
-              onPress={
-              () => navigate('Messages')
+             <FooterTab>
+              <Button >
+              <Icon name="contact" />
+                <Text>Profile</Text>
               }
-            >
-              <Text>Messages</Text>
-            </Button>
-            <Button>
-              <Text>somethingelse</Text>
-            </Button>
-          </FooterTab>
+              </Button>
+              <Button
+              onPress={
+                () => this._getCity().then(()=> navigate('Search'))
+              }
+              >
+              <Icon name="people" />
+                <Text>Search</Text>
+              </Button>
+              <Button
+                onPress={
+                () => navigate('Messages')
+                }
+              >
+              <Icon name="chatboxes" />
+                <Text>Messages</Text>
+              </Button>
+            </FooterTab>
         </Footer>
+
+
     </Container>
     )
   }

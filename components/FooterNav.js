@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base';
 import {View} from 'react-native';
 
-export default class FooterTabs extends Component {
+export default class FooterNav extends Component {
    constructor(props){
     super(props);
   }

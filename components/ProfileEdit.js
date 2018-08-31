@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList} from 'react-native';
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
- import FooterTabs from './Footer'
+ import FooterNav from './FooterNav'
  import InstrumentAdder from './InstrumentAdder'
  import GenreAdder from './GenreAdder'
  import ProfileEditContainer from './ProfileEditContainer'

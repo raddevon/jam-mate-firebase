@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, Text, View, StyleSheet, ImageBackground, Alert, Image, Platform, TouchableOpacity} from 'react-native';
 import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Icon, Item, Button,
  Label, Left, List, ListItem, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail, Ul, Li} from 'native-base';
- import FooterTabs from './Footer';
+ import FooterNav from './FooterNav';
  import SearchProfilesCard from './SearchProfilesCard';
  import SearchProfilesGenres from './SearchProfilesGenres';
  import * as firebase from 'firebase';

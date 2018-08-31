@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList} from 'react-native';
-import { Container, Content, Header, Footer, FooterTab, Form, Input, Item, Button,
+import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
- import FooterTabs from './Footer'
+ import FooterNav from './FooterNav'
  import * as firebase from 'firebase';
 
  export default class Messages extends Component{
@@ -47,6 +47,7 @@ import { Container, Content, Header, Footer, FooterTab, Form, Input, Item, Butto
                 () => navigate('Home')
               }
             >
+            <Icon name="contact" />
               <Text>Profile</Text>
             </Button>
             <Button
@@ -54,13 +55,12 @@ import { Container, Content, Header, Footer, FooterTab, Form, Input, Item, Butto
                 () => navigate('Search')
               }
             >
+            <Icon name='people' />
               <Text>Search</Text>
             </Button>
             <Button>
+            <Icon name="chatboxes" />
               <Text>Messages</Text>
-            </Button>
-            <Button>
-              <Text>somethingelse</Text>
             </Button>
           </FooterTab>
         </Footer>
