@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Text } from 'native-base';
+import { TabNavigator } from "react-navigation";
 import {View} from 'react-native';
 
 export default class FooterNav extends Component {
