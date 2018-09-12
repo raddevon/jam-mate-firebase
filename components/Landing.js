@@ -69,7 +69,7 @@ export default class Landing extends Component{
       <Left />
       <Body>
       <Animatable.View animation="flipInY">
-      <Animatable.View animation="pulse" easing="ease-in-out" iterationCount="infinite" iterationDelay={1000}>
+      <Animatable.View animation="pulse" easing="ease-in-out" iterationCount="infinite" iterationDelay={3500}>
       <H1 style={styles.title}> Jammate </H1>
       </Animatable.View>
       </Animatable.View>
@@ -102,8 +102,18 @@ export default class Landing extends Component{
 
 const styles = StyleSheet.create({
   title:{
-    fontSize:100, paddingTop:140, marginBottom:50, fontFamily:'Noteworthy',
-    color:'#007bff', fontWeight:'300', alignSelf:'auto'
+    fontSize:100,
+    paddingTop:140, 
+    marginBottom:50, 
+    fontFamily:'Noteworthy',
+    color:'#007bff', 
+    fontWeight:'300', 
+    textShadowColor: '#111111',
+    textShadowOffset: { width: 4, height: 4 },
+    textShadowRadius: 5, 
+    position: 'absolute',
+    top:-70,
+    left: -200,
   },
     statements: {
     color: 'rgb(255, 255, 255)',
