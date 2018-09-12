@@ -88,7 +88,7 @@ export default class Landing extends Component{
       >
       <Image
        source={require('../img/facebook_login.png')}
-       style={{flex:1, height: '100%', width: '100%'}}
+       style={{flex:1, height: '188%', width: '100%'}}
 
       />
       </Button>

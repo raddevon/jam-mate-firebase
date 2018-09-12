@@ -20,7 +20,7 @@ const Router = createStackNavigator({
     FooterNav:FooterNav,
   },
   {
-    initialRouteName: 'Search',
+    initialRouteName: 'Landing',
   }  
 );
 

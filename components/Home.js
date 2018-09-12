@@ -154,7 +154,7 @@ export default class Home extends Component{
             <Row>
             <ProfileTop username={this.state.username} userphoto={this.state.userphoto} />
             </Row>
-            <Row style={{ backgroundColor: '#2E0094'}}>
+            <Row style={{ backgroundColor: '#72b4e0'}}>
               <Col>
                 <Instruments instruments={this.state.instrumentsList} />
               </Col>
