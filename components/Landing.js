@@ -77,9 +77,7 @@ export default class Landing extends Component{
       <Right />
       <Button
       style={{alignSelf:'center', margin:20}} 
-      success
-      rounded
-      active
+      transparent
       onPress={
         () => this._loginWithFacebook().then(function(){
           navigate('Home') 
@@ -88,7 +86,7 @@ export default class Landing extends Component{
       >
       <Image
        source={require('../img/facebook_login.png')}
-       style={{flex:1, height: '188%', width: '100%'}}
+       style={{height: '110%', width: '100%'}}
 
       />
       </Button>
