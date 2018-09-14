@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList} from 'react-native';
 import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
- import FooterNav from './FooterNav'
+ import FooterNav from './FooterNav';
  import * as firebase from 'firebase';
+ import { GiftedChat } from 'react-native-gifted-chat';
+
 
  export default class Messages extends Component{
   constructor(props){
     super(props);
     this.state={
+      messages: [],
     }
   }
 

@@ -29,7 +29,9 @@ export default class Home extends Component{
       genresList:[],
     }
   }
-  
+ 
+
+
   static navigationOptions = ({navigation}) => ({
     title: 'Home',
     headerLeft: null,
@@ -194,6 +196,13 @@ export default class Home extends Component{
     )
   }
 }
+
+  Home.defaultProps = {
+    username: '',
+    user: null,
+    userphoto: null,
+    userzip: null,
+  }
 
 const styles = StyleSheet.create({
   helpText:{
