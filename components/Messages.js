@@ -11,11 +11,14 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
   constructor(props){
     super(props);
     this.state={
-      messages: [],
-      messagers: [],
+      messages:[],
+      messagers: [
+      {
+        user:'test1',
+      }],
     }
     _getMessages = () =>{
-      console.log(this.state.messages[0].message)
+      
     }
   }
 
@@ -33,19 +36,32 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
 
   componentWillMount() {
         this.setState({
-      messages: [
+      messages: 
+      [
         {
-          message: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-            avatar: 'https://placeimg.com/140/140/any',
-          },
+          user:'Michael',
+          message:'Hey man, this is my first message to you',
+          timestamp:new Date()
         },
-      ],
+        {
+          user:'Michael',
+          message:'I felt like I should send you another, actually',
+          timestamp:new Date()
+        },
+        {
+          user:'test1',
+          message:'Hi I am a user too - lets play music',
+          timestamp:new Date()
+        },
+        {
+          user:'Michael',
+          message:'Wanted to see how this organized, since test1 messaged between',
+          timestamp:new Date()
+        }
+      ]
     })
   }
+
 
   onSend(messages = []) {
     // this.setState(previousState => ({
@@ -60,11 +76,27 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
 
   render(){
     const { navigate } = this.props.navigation;
+    let messagersList = this.state.messages
+      .map((item => item.user))
+      .filter((item, index, arr) => arr.indexOf(item) == index) 
+      console.log('here is that messagersList', messagersList)
 
     return(
       <Container>
         <Content>
-
+        <FlatList 
+                data={messagersList}
+                extraData={messagersList}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({item, index}) => 
+                  <List>
+                  <ListItem>
+                      <Text style={{marginBottom:5, marginTop:20}}>{item}</Text>
+                  </ListItem>
+                </List>    
+                }
+        >
+        </FlatList>
         </Content>
 
         <Footer>
