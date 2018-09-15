@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
  import FooterNav from './FooterNav';
+ import MessagesIndividual from './MessagesIndividual';
  import * as firebase from 'firebase';
  import { GiftedChat } from 'react-native-gifted-chat';
 
@@ -91,7 +92,14 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
                 renderItem={({item, index}) => 
                   <List>
                   <ListItem>
-                      <Text style={{marginBottom:5, marginTop:20}}>{item}</Text>
+                      <TouchableOpacity 
+                      style={{marginBottom:5, marginTop:20}}
+                      onPress={
+                        ()=> navigate('MessagesIndividual', {name:item})
+                      }
+                      >
+                      <Text> {item} </Text>
+                      </TouchableOpacity>
                   </ListItem>
                 </List>    
                 }

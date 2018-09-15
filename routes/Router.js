@@ -6,6 +6,7 @@ import ProfileEdit from '../components/ProfileEdit'
 import Search from '../components/Search'
 import FooterNav from '../components/FooterNav'
 import Messages from '../components/Messages'
+import MessagesIndividual from '../components/MessagesIndividual'
 import { createStackNavigator, StackNavigator, TabNavigator } from 'react-navigation';
 import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
 import { Text, View, ImageBackground } from 'react-native';
@@ -17,7 +18,9 @@ const Router = createStackNavigator({
     ProfileEdit: ProfileEdit,
     Search: Search,
     Messages:Messages,
+    MessagesIndividual:MessagesIndividual,
     FooterNav:FooterNav,
+
   },
   {
     initialRouteName: 'Messages',
