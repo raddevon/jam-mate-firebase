@@ -12,6 +12,10 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
     super(props);
     this.state={
       messages: [],
+      messagers: [],
+    }
+    _getMessages = () =>{
+      console.log(this.state.messages[0].message)
     }
   }
 
@@ -27,22 +31,42 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
     },
   };
 
-  componentWillMount(){
+  componentWillMount() {
+        this.setState({
+      messages: [
+        {
+          message: 'Hello developer',
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+            avatar: 'https://placeimg.com/140/140/any',
+          },
+        },
+      ],
+    })
+  }
+
+  onSend(messages = []) {
+    // this.setState(previousState => ({
+    //   messages: GiftedChat.append(previousState.messages, messages),
+    // }))
   }
 
   componentDidMount(){
+    _getMessages()
   }
+
 
   render(){
     const { navigate } = this.props.navigation;
 
-
     return(
-
       <Container>
         <Content>
-          <Text>Messages</Text>
+
         </Content>
+
         <Footer>
           <FooterTab>
             <Button
@@ -72,6 +96,10 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
       )
   }
 
+}
+
+Messages.defaultProps={
+  messages:[]
 }
 
 const styles = StyleSheet.create({
