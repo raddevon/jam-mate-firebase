@@ -95,7 +95,7 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
                       <TouchableOpacity 
                       style={{marginBottom:5, marginTop:20}}
                       onPress={
-                        ()=> navigate('MessagesIndividual', {name:item})
+                        ()=> navigate('MessagesIndividual', {'name':item})
                       }
                       >
                       <Text> {item} </Text>

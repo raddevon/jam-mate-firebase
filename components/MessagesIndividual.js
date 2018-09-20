@@ -22,14 +22,15 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
   };
 
   render(){
+    const { navigation } = this.props;
+    const username = navigation.getParam('name', 'name-goes-here');
+    console.log(username)
     return(
       <Container>
         <Content>
-          <Text> {this.props.name} </Text>
+          <Text> {username} </Text>
         </Content>
       </Container>
-
     )
   }
-
 }
