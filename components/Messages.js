@@ -81,6 +81,7 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
       .map((item => item.user))
       .filter((item, index, arr) => arr.indexOf(item) == index) 
       console.log('here is that messagersList', messagersList)
+    let messages = this.state.messages;
 
     return(
       <Container>
@@ -95,7 +96,11 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
                       <TouchableOpacity 
                       style={{marginBottom:5, marginTop:20}}
                       onPress={
-                        ()=> navigate('MessagesIndividual', {'name':item})
+                        ()=> navigate('MessagesIndividual', 
+                          {
+                            'name':item,
+                            'messages':messages,
+                          })
                       }
                       >
                       <Text> {item} </Text>

@@ -21,14 +21,43 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
     },
   };
 
+  componentWillMount(){
+
+  }
+
+  componentWDidMount(){
+
+  }
+
+  componentWillUnmount(){
+
+  }
+
   render(){
     const { navigation } = this.props;
     const username = navigation.getParam('name', 'name-goes-here');
-    console.log(username)
+    const messages = navigation.getParam('messages', null)
+    .filter((item, index, arr) => arr.indexOf(item.user) == index)
+    .map((item => item.message))
+    console.log('username passed?', username)
+    console.log('messages passed?', messages)
+
     return(
       <Container>
         <Content>
-          <Text> {username} </Text>
+        <FlatList 
+                data={messages}
+                extraData={messages}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({item, index}) => 
+                  <List>
+                  <ListItem>
+                      <Text> {item} </Text>
+                  </ListItem>
+                </List>    
+                }
+        >
+        </FlatList>
         </Content>
       </Container>
     )
