@@ -37,7 +37,8 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
     const { navigation } = this.props;
     const username = navigation.getParam('name', 'name-goes-here');
     const messages = navigation.getParam('messages', null)
-    .filter((item, index, arr) => arr.indexOf(item.user) == index)
+    // filter so to only show item.user which matches username (from above)
+    .filter((item, index, arr) => arr.indexOf(item) == index)
     .map((item => item.message))
     console.log('username passed?', username)
     console.log('messages passed?', messages)
