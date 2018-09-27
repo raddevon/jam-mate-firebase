@@ -41,22 +41,22 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
       [
         {
           user:'Michael',
-          message:'Hey man, this is my first message to you',
+          message:'Hey man, this is my first message to you, from Michael',
           timestamp:new Date()
         },
         {
           user:'Michael',
-          message:'I felt like I should send you another, actually',
+          message:'I felt like I should send you another, actually -- still from Michael',
           timestamp:new Date()
         },
         {
           user:'test1',
-          message:'Hi I am a user too - lets play music',
+          message:'Hi I am a user too - lets play music, from test1',
           timestamp:new Date()
         },
         {
           user:'Michael',
-          message:'Wanted to see how this organized, since test1 messaged between',
+          message:'Wanted to see how this organized, since test1 messaged between, from Michael',
           timestamp:new Date()
         }
       ]
