@@ -16,7 +16,7 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
 
   render() {
     return (
-      <View style={{marginTop: 22}}>
+      <View>
         <Modal
           animationType="slide"
           transparent={false}

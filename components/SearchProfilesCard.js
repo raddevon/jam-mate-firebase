@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, Text, View, StyleSheet, ImageBackground, Alert, Image, Platform, TouchableOpacity, ScrollView} from 'react-native';
+import { Alert, FlatList, Text, View, StyleSheet, ImageBackground, Image, Platform, TouchableOpacity, ScrollView} from 'react-native';
 import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Icon, Item, Button,
  Label, Left, List, ListItem, Body, Right, Title, H3, H2, Grid, Col, Row, Footer, FooterTab, Thumbnail} from 'native-base';
  import FooterNav from './FooterNav';
@@ -76,8 +76,10 @@ constructor(props){
                 }}>
               </FlatList>
             </Body>
-            <Button>
-              <Text>Message {this.props.name}</Text>
+            <Button
+            onPress={ () => Alert.alert('sending a message to', this.props.name)}
+            >
+              <Text> Message {this.props.name} </Text>
             </Button>
           </CardItem>
         </Card>

@@ -111,7 +111,6 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
                 }
         >
         </FlatList>
-        <CreateMessage />
         </Content>
 
         <Footer>

@@ -6,7 +6,6 @@ import ProfileEdit from '../components/ProfileEdit'
 import Search from '../components/Search'
 import FooterNav from '../components/FooterNav'
 import Messages from '../components/Messages'
-import CreateMessage from '../components/CreateMessage'
 import MessagesIndividual from '../components/MessagesIndividual'
 import { createStackNavigator, StackNavigator, TabNavigator } from 'react-navigation';
 import { Container, Content, Header, Form, Input, Item, Button, Label } from 'native-base';
@@ -19,13 +18,12 @@ const Router = createStackNavigator({
     ProfileEdit: ProfileEdit,
     Search: Search,
     Messages:Messages,
-    CreateMessage:CreateMessage,
     MessagesIndividual:MessagesIndividual,
     FooterNav:FooterNav,
 
   },
   {
-    initialRouteName: 'CreateMessage',
+    initialRouteName: 'Search',
   }  
 );
 
