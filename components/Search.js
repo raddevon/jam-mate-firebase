@@ -5,6 +5,7 @@ import { Card, CardImage, CardItem, Container, Content, Header, Form, Input, Ico
  import FooterNav from './FooterNav';
  import SearchProfilesCard from './SearchProfilesCard';
  import SearchProfilesGenres from './SearchProfilesGenres';
+ import CreateMessageModal from './CreateMessageModal';
  import * as firebase from 'firebase';
  import * as Animatable from 'react-native-animatable';
 
@@ -12,9 +13,20 @@ export default class Search extends Component{
   constructor(props){
     super(props);
     this.state={
-      usersArray: []
+      usersArray: [],
+      isCreateMessageModalVisible: false,
+    }
+    handleShowCreateMessageModal = () =>{
+      this.setState({
+        isCreateMessageModalVisible: true
+      })  
     }
   }
+    handleDismissCreateMessageModal=()=>{
+      this.setState({
+        isCreateMessageModalVisible: false
+      })
+    }  
   
   static navigationOptions = ({navigation}) => ({
     title: 'Search',
@@ -28,11 +40,14 @@ export default class Search extends Component{
     },
   });
 
+
+
   componentWillMount= () =>{
   }
   
 
   componentDidMount=()=>{
+    handleShowCreateMessageModal();
     let newList=[];
     let that = this;
     let ref = firebase.database().ref('/users/');
@@ -113,6 +128,11 @@ export default class Search extends Component{
         >
         </FlatList>
       </Content>
+      <CreateMessageModal
+        isVisible={this.state.isCreateMessageModalVisible}
+        onBackdropPress={this.handleDismissCreateMessageModal}
+      />
+
       <Footer>
       <FooterTab>
         <Button
