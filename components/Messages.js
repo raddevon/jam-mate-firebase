@@ -141,19 +141,8 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
 
       )
   }
-
 }
 
 Messages.defaultProps={
   messages:[]
 }
-
-const styles = StyleSheet.create({
-  buttons: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    flexWrap: 'wrap', 
-    flexDirection:'column',
-   },
-});
