@@ -14,7 +14,7 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
       isVisible={isVisible}
       onBackdropPress={onBackdropPress}
     >
-    <View style={{height: "25%", width:"100%"}}>
+    <View style={styles.modalViewContainer}>
 
     </View>
     </Modal>

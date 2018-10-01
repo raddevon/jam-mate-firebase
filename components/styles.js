@@ -38,7 +38,15 @@ const styles = StyleSheet.create({
     flex:1,
     justifyContent:'center',
     alignItems:'center',
-    flexWrap: 'wrap', 
+    flexWrap:'wrap', 
     flexDirection:'column',
    },
+   modalViewContainer: {
+    width: '100%',
+    backgroundColor: 'lightgray',
+    height: MODAL_HEIGHT,
+    borderRadius: 5
+   }
 })
+
+export default styles
