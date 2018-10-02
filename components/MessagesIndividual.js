@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList} from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
 import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
  import FooterNav from './FooterNav';
+ import CreateMessageModal from "./CreateMessageModal";
  import * as firebase from 'firebase';
 
  export default class Messages extends Component{
   constructor(props){
     super(props);
+    this.state={
+      isCreateMessageModalVisible: false,
+    }
+    handleShowCreateMessageModal = () =>{
+      this.setState({
+        isCreateMessageModalVisible: true
+      })  
+    }
   }
+  handleDismissCreateMessageModal=()=>{
+    this.setState({
+      isCreateMessageModalVisible: false
+    })
+  }  
 
   static navigationOptions = {
     title: 'message to someone',
@@ -25,8 +39,7 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
 
   }
 
-  componentWDidMount(){
-
+  componentDidMount(){
   }
 
   componentWillUnmount(){
@@ -60,7 +73,17 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
                 }
         >
         </FlatList>
+        <Button
+        onPress={()=> handleShowCreateMessageModal()}
+        >
+        <Text>Test me</Text>
+        </Button>
+        <CreateMessageModal
+          isVisible={this.state.isCreateMessageModalVisible}
+          onBackdropPress={this.handleDismissCreateMessageModal}
+      />
         </Content>
+
       </Container>
     )
   }
