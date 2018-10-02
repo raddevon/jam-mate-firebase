@@ -43,9 +43,28 @@ const styles = StyleSheet.create({
    },
    modalViewContainer: {
     width: '100%',
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
     height: MODAL_HEIGHT,
     borderRadius: 5
+   },
+   modalSmallContainerView: {
+    width:'100%',
+    height:MODAL_HEIGHT/3,
+    alignItems:'center',
+    justifyContent: 'center'
+   },
+   modalTitleText: {
+    color:'black',
+    marginBottom: 4,
+    fontSize: 16,
+    fontWeight: 'bold',
+   },
+   modalSeparatorLine: {
+    width: '100%',
+    backgroundColor: 'lightgray',
+    position: 'absolute',
+    bottom: 0,
+    height: 1,
    }
 })
 

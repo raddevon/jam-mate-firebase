@@ -15,7 +15,13 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
       onBackdropPress={onBackdropPress}
     >
     <View style={styles.modalViewContainer}>
-
+      <View style={styles.modalSmallContainerView}>
+        <Text style={styles.modalTitleText}>Send a Message</Text>
+        <View style={styles.modalSeparatorLine}></View>
+        <Input
+          placeholder="Enter Message..."
+        />
+      </View>
     </View>
     </Modal>
   );
