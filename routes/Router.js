@@ -28,4 +28,3 @@ const Router = createStackNavigator({
 );
 
 export default Router;
-

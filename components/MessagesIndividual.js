@@ -36,14 +36,12 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
   };
 
   componentWillMount(){
-
   }
 
   componentDidMount(){
   }
 
   componentWillUnmount(){
-
   }
 
   render(){

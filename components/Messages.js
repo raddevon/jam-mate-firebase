@@ -71,9 +71,13 @@ import { Container, Content, Header, Footer, FooterTab, Form, Icon, Input, Item,
     // }))
   }
 
+
+
+
   componentDidMount(){
     _getMessages()
   }
+
 
 
   render(){
