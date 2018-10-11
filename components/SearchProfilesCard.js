@@ -62,6 +62,7 @@ constructor(props){
           <CardItem>
             <Body>
               <H3>{this.props.name}</H3>
+              <H2>{this.props.userid}</H2>
               <FlatList
                 data={combo}
                 keyExtractor={(item, index)=> index.toString()} 

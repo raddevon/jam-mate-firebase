@@ -117,7 +117,7 @@ export default class Search extends Component{
                       <Thumbnail source={{ uri: item.userphoto }} />
                     </Left>
                     <Body>
-                      <SearchProfilesCard instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
+                      <SearchProfilesCard userid={item.userid} instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
                       <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
                     </Body>
                     <Right>
