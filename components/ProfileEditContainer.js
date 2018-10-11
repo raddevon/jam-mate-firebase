@@ -12,6 +12,7 @@ import { Container, Content, Header, Form, Input, Item, Button,
     this.state={
       toggle:false,
       userzip:null,
+      contactinfo:null,
       instruments:null,
       genres:null
     }
@@ -46,10 +47,11 @@ import { Container, Content, Header, Form, Input, Item, Button,
   componentWillMount(){
       let that = this;
       let userId = firebase.auth().currentUser.uid;
-      firebase.database().ref('/users/'+ userId).child('zipcode').once('value').then((function(snapshot){
-      let userzip = (snapshot.val() || '');
+      firebase.database().ref('/users/'+ userId).once('value').then((function(snapshot){
+      const user = snapshot.val();
       that.setState({
-        userzip:userzip
+        userzip: user.zipcode || '',
+        contactinfo: user.contactinfo || ''
       })
       }));
   }
@@ -76,6 +78,16 @@ import { Container, Content, Header, Form, Input, Item, Button,
     return(
 
       <Container>
+              <Item fixedLabel>
+                      <Label>Contact info</Label>
+                      <Input
+                        onChangeText={(contactinfo) => {
+                          this.setState({contactinfo});
+                          }
+                        }
+                        value={this.state.contactinfo}
+                      />
+              </Item>
               <InstrumentAdder userId={userId}/>
               <GenreAdder userId={userId}/>
       </Container>

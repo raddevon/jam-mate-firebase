@@ -23,7 +23,7 @@ const Router = createStackNavigator({
 
   },
   {
-    initialRouteName: 'Search',
+    initialRouteName: 'Landing',
   }  
 );
 
