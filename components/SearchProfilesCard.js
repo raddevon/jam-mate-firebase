@@ -15,46 +15,18 @@ constructor(props){
   }
 
   componentDidMount = () =>{
-    // console.log('this.props.general', this.props.general)
-    // console.log('this.props.general.firstname', this.props.general.firstname)
 
+  }
 
-    // console.log('can o worms Object.values(this.props.general)')
-    // console.log('this props general . data  instruments')
-        
-    // console.log('working?')
-    // for (let [key, val] in this.props.general){
-    //       console.log('this.props.general[key]')
-    //       console.log('just the val')
-    //     }
+  _addContact = (targetUser) => {
+    let currentuser = firebase.auth().currentUser.uid;
+    firebase.database().ref('/users/' + targetUser).child('connectedusers').push(currentuser)
   }
 
   render(){
 
 
     let combo = ["INSTRUMENTS"].concat(this.props.instruments, [" ", "GENRES"], this.props.genres);
-    // console.log('what is passed for instruments', this.props.instruments)
-    // let instrumentArr = [];
-    // this.props.instruments.forEach(function(itemObj, i){
-    //   Object.keys(itemObj).forEach(function(individualItem, j){
-    //     let myObj = {};
-    //     myObj['key'] = itemObj[individualItem];
-    //     myObj['color'] = 'blue';
-    //     myObj['type'] = 'instrument';
-    //     instrumentArr.push(myObj);
-    //   });
-    // });   
-    // instrumentArr.push({'key': '', 'color': '', 'type': ''});
-    // this.props.genres.forEach(function(itemObj, i){
-    //   Object.keys(itemObj).forEach(function(individualItem, j){
-    //     let myObj = {}
-    //     myObj['key'] = itemObj[individualItem];
-    //     myObj['color'] = 'green';
-    //     myObj['type'] = 'genre';
-    //     instrumentArr.push(myObj);
-    //   });
-    // });  
-    // console.log('this should be checkpoint for instrumentArr', instrumentArr)
 
     return(
       <View>
@@ -76,12 +48,16 @@ constructor(props){
                   );
                 }}>
               </FlatList>
-            </Body>
             <Button
-            onPress={ () => Alert.alert('sending a message to', this.props.name)}
+              onPress={ () => {
+                this._addContact(this.props.userid)
+                Alert.alert('connection sent to', this.props.name)
+              }
+              }
             >
-              <Text> Message {this.props.name} </Text>
+              <Text> Send Contact Info to {this.props.name} </Text>
             </Button>
+            </Body>
           </CardItem>
         </Card>
       </View>
