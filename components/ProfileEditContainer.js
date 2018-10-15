@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button,
+import { Container, Content, Header, Form, Icon, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
  import InstrumentAdder from './InstrumentAdder'
  import GenreAdder from './GenreAdder'
@@ -27,6 +27,10 @@ import { Container, Content, Header, Form, Input, Item, Button,
 
   _onStateChange(newState){
     this.setState({toggleState:value})
+  }
+
+  _addContactInfo=(contact)=>{
+    console.log('will add contact info', contact)
   }
 
   static navigationOptions = {
@@ -78,23 +82,25 @@ import { Container, Content, Header, Form, Input, Item, Button,
     return(
 
       <Container>
-              <Item fixedLabel>
-                      <Label>Contact info</Label>
-                      <Input
-                        onChangeText={(contactinfo) => {
-                          this.setState({contactinfo});
-                          }
-                        }
-                        value={this.state.contactinfo}
-                      />
-              </Item>
+            <Item>
+              <Input
+                placeholder="Contact info"
+                onChangeText={(contactinfo) => 
+                  this.setState({contactinfo})
+                }
+                value={this.state.contactinfo}
+              />
+              <Button
+              onPress={()=> this._addContactInfo(this.state.contactinfo)}
+              >
+              <Icon name="add" />
+              </Button>
+            </Item>
               <InstrumentAdder userId={userId}/>
               <GenreAdder userId={userId}/>
       </Container>
-
-      )
+    )
   }
-
 }
 
 const styles = StyleSheet.create({
