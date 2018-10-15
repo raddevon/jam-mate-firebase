@@ -188,6 +188,14 @@ export default class Home extends Component{
               <Icon name="chatboxes" />
                 <Text>Messages</Text>
               </Button>
+              <Button
+                onPress={
+                () => navigate('Connections')
+                }
+              >
+              <Icon name="chatboxes" />
+                <Text>Connections</Text>
+              </Button>
             </FooterTab>
         </Footer>
 
