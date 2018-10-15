@@ -31,6 +31,7 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
 
   _addContactInfo=(contact)=>{
     console.log('will add contact info', contact)
+
   }
 
   static navigationOptions = {
@@ -82,22 +83,22 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
     return(
 
       <Container>
-            <Item>
-              <Input
-                placeholder="Contact info"
-                onChangeText={(contactinfo) => 
-                  this.setState({contactinfo})
-                }
-                value={this.state.contactinfo}
-              />
-              <Button
-              onPress={()=> this._addContactInfo(this.state.contactinfo)}
-              >
-              <Icon name="add" />
-              </Button>
+            <Item floatingLabel>
+              <Label> Contact Info</Label>
+                <Input
+                  onChangeText={(contactinfo) => 
+                    this.setState({contactinfo})
+                  }
+                  value={this.state.contactinfo}
+                />
+                <Button
+                onPress={()=> this._addContactInfo(this.state.contactinfo)}
+                >
+                  <Icon name="add" />
+                </Button>
             </Item>
-              <InstrumentAdder userId={userId}/>
-              <GenreAdder userId={userId}/>
+            <InstrumentAdder userId={userId}/>
+            <GenreAdder userId={userId}/>
       </Container>
     )
   }
