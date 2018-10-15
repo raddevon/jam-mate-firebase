@@ -12,7 +12,7 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
     this.state={
       toggle:false,
       userzip:null,
-      contactinfo:null,
+      contactinfo:'',
       instruments:null,
       genres:null
     }
@@ -32,7 +32,7 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
   _addContactInfo=(contact)=>{
     console.log('will add contact info', contact)
     let userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('/users/' + userId).child('contactinfo').push(this.state.contactinfo)
+    firebase.database().ref('/users/' + userId).child('contactinfo').set(this.state.contactinfo)
     this.setState({
       contactinfo:''
     })
@@ -59,9 +59,13 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
       let userId = firebase.auth().currentUser.uid;
       firebase.database().ref('/users/'+ userId).once('value').then((function(snapshot){
       const user = snapshot.val();
+      console.log('this is what it thinks user is', user)
+      console.log('this is what it thinks userzip would be', user.zipcode)
+      console.log('this is what it thinks contactinfo would be', user.contactinfo)
+      // const contactinfo = user.contactinfo.val();
       that.setState({
         userzip: user.zipcode || '',
-        contactinfo: user.contactinfo || ''
+        contactinfo: '',
       })
       }));
   }
@@ -92,17 +96,15 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
             <Item floatingLabel>
               <Label> Update Contact Info</Label>
                 <Input
-                  onChangeText={(contactinfo) => 
-                    this.setState({contactinfo})
-                  }
+                  onChangeText={(contactinfo) => this.setState({contactinfo})}
                   value={this.state.contactinfo}
                 />
-                <TouchableOpacity
+            </Item>
+                <Button
                 onPress={()=> this._addContactInfo(this.state.contactinfo)}
                 >
                   <Icon name="add" />
-                </TouchableOpacity>
-            </Item>
+                </Button>
         </Form>
             <InstrumentAdder userId={userId}/>
             <GenreAdder userId={userId}/>
