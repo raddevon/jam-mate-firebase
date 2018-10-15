@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, Toucha
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Icon } from 'native-base';
  import FooterNav from './FooterNav'
+ import styles from './styles'
  import * as firebase from 'firebase';
 
 var tempInstrumentList = []
@@ -39,7 +40,7 @@ export default class InstrumentAdder extends Component{
   }
 
 
-  componentWillMount= ()=>{
+  componentWillMount= () =>{
     let newList=[];
     let that=this;
     let ref= firebase.database().ref('/users/'+ this.props.userId).child('instruments');
@@ -61,7 +62,6 @@ export default class InstrumentAdder extends Component{
     onChangeText={(formContent)=> this.setState({formContent})}
     value={this.state.formContent}
      /> 
-    }
     <Button
     onPress={()=> this._addInstrument()}
     > 
@@ -78,7 +78,7 @@ export default class InstrumentAdder extends Component{
               renderItem={({item, index}) => 
               <TouchableOpacity
                 onPress={()=> this._removeInstrument(item.key, index)}
-                style={{padding:4, marginBottom:6, borderRadius:10, borderColor:'dodgerblue', borderWidth:1, flexDirection:'row',alignSelf: 'center'}}
+                style={styles.addIconStyle}
                 >
                 <Text
                 style={{textAlign:'center',letterSpacing: 1.5,}}

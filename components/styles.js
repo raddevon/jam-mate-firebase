@@ -19,6 +19,15 @@ const styles = StyleSheet.create({
     top:-70,
     left: -200,
   },
+  addIconStyle:{
+    padding:4,
+    marginBottom:6,
+    borderRadius:10, 
+    borderColor:'dodgerblue', 
+    borderWidth:1, 
+    flexDirection:'row',
+    alignSelf: 'center'
+  },
   statements: {
     color: 'rgb(255, 255, 255)',
     fontWeight: 'bold',

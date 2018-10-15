@@ -31,6 +31,11 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
 
   _addContactInfo=(contact)=>{
     console.log('will add contact info', contact)
+    let userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('/users/' + userId).child('contactinfo').push(this.state.contactinfo)
+    this.setState({
+      contactinfo:''
+    })
 
   }
 
@@ -83,20 +88,22 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
     return(
 
       <Container>
+      <Form>
             <Item floatingLabel>
-              <Label> Contact Info</Label>
+              <Label> Update Contact Info</Label>
                 <Input
                   onChangeText={(contactinfo) => 
                     this.setState({contactinfo})
                   }
                   value={this.state.contactinfo}
                 />
-                <Button
+                <TouchableOpacity
                 onPress={()=> this._addContactInfo(this.state.contactinfo)}
                 >
                   <Icon name="add" />
-                </Button>
+                </TouchableOpacity>
             </Item>
+        </Form>
             <InstrumentAdder userId={userId}/>
             <GenreAdder userId={userId}/>
       </Container>
