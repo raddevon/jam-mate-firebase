@@ -13,6 +13,7 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
       toggle:false,
       userzip:null,
       contactinfo:'',
+      formContent:'',
       instruments:null,
       genres:null
     }
@@ -32,9 +33,10 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
   _addContactInfo=(contact)=>{
     console.log('will add contact info', contact)
     let userId = firebase.auth().currentUser.uid;
-    firebase.database().ref('/users/' + userId).child('contactinfo').set(this.state.contactinfo)
+    firebase.database().ref('/users/' + userId).child('contactinfo').set(this.state.formContent)
     this.setState({
-      contactinfo:''
+      contactinfo: this.state.formContent,
+      formContent:'',
     })
 
   }
@@ -65,7 +67,7 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
       // const contactinfo = user.contactinfo.val();
       that.setState({
         userzip: user.zipcode || '',
-        contactinfo: '',
+        contactinfo: user.contactinfo || '',
       })
       }));
   }
@@ -92,12 +94,18 @@ import { Container, Content, Header, Form, Icon, Input, Item, Button,
     return(
 
       <Container>
+      <View>
+        <Text>Contact info you are sharing:</Text>
+      </View>
+      <View>
+        <Text> {this.state.contactinfo} </Text>
+      </View>
       <Form>
             <Item floatingLabel>
               <Label> Update Contact Info</Label>
                 <Input
-                  onChangeText={(contactinfo) => this.setState({contactinfo})}
-                  value={this.state.contactinfo}
+                  onChangeText={(formContent) => this.setState({formContent})}
+                  value={this.state.formContent}
                 />
             </Item>
                 <Button
