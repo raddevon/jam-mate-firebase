@@ -14,6 +14,7 @@ export default class Connections extends Component{
     super(props);
     this.state={
       usersArray: [],
+      contactinfo: [],
     }
   }
 
@@ -42,94 +43,58 @@ export default class Connections extends Component{
     let ref = firebase.database().ref('/users/'+userId).child('connectedusers')
     ref.orderByKey().once("value").then(function(snapshot) {
       snapshot.forEach(function(userSnapshot){
-      console.log('here is a usersnapshot', userSnapshot)
-      newList.push(userSnapshot)
-      that.setState({
-        usersArray:newList
+        console.log('here is a usersnapshot', userSnapshot)
+        newList.push(userSnapshot)
       })
-    //   usersobj['id'] = userSnapshot.key
-    //  
-    //   newList.push(myObj)
-    //   })
-    //   that.setState({
-    //     usersArray: newList,
-    //   })
-    // })
-  })
+      that._getArray(newList)
     })
   }
 
 
 
- _getArray=(users)=>{
-  console.log(users)
-  let results = [];
-
-  // Loop through each user
-  users.forEach(function(user){
-    let temp = user.toJSON()
-    results.push(temp)
-
-  //   let obj = originalObj.toJSON();    
-    // Get the users
-    // let users = [];
-    // for (let key in obj.users){
-    //   genres.push(obj.genres[key]);
-    // }
-    // Add the result to the table
-    // results.push({
-    //   userid: originalObj.userid,
-    //   key: idx, 
-    //   firstname: obj.firstname, 
-    //   lastname: obj.lastname, 
-    //   zipcode: obj.zipcode, 
-    //   userphoto: obj.userphoto || 'http://temp.changeme.com', 
-    //   genres: genres, 
-    //   instruments: instruments});
-  })
-  return results
+   _getArray=(connectedusersids)=>{
+    let ref = firebase.database().ref('/users/');
+    // Loop through each user for id
+    let idlist = connectedusersids.map((id)=>{
+      return id.toJSON()
+    })
+    ref.orderByKey().once('value').then((snapshot) => {
+      let userIds = Object.keys(snapshot.toJSON());
+      let users = userIds.map((id) => {
+        let user = snapshot.toJSON()[id];
+        user.key = id;
+        return user;
+      })
+      let connectedusers = users.filter((item) => {
+        const isConnectedUser = idlist.some((id) => id == item.key) 
+        return isConnectedUser;
+      })
+      let contactinfo = connectedusers.map((user)=> {
+        return {
+          firstname: user.firstname,
+          lastname: user.lastname, 
+          contactinfo: user.contactinfo
+        } 
+      });
+      this.setState({
+        contactinfo: contactinfo
+      })
+    }); 
   }
-  // });
 
-//   return results;
-// }
-        // <FlatList 
-                // data={results}
-                // extraData={results}
-                // keyExtractor={(item) => item.userid}
-                // renderItem={({item, index}) => 
-                  // <List
-                    // listKey={item.userid}
-                  // >
-                  // <ListItem avatar>
-                    // <Left>
-                      // <Thumbnail source={{ uri: item.userphoto }} />
-                    // </Left>
-                    // <Body>
-                      // <SearchProfilesCard userid={item.userid} instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
-                      // <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
-        //             </Body>
-        //             <Right>
-        //             </Right>
-        //           </ListItem>
-        //         </List>    
-        //         }
-        // >
-        // </FlatList>
+
 
   render(){
     const { navigate } = this.props.navigation;
     console.log('this is users array in render', this.state.usersArray)
-    let users = this.state.usersArray
-    var results = this._getArray(users);
 
     return(
       <Container>
       <Content>
         <H2> Connections </H2>
         <FlatList 
-                data={results}
-                extraData={results}
+                data={this.state.contactinfo}
+                extraData={this.state.contactinfo}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({item, index}) => 
                   <List>
@@ -137,7 +102,7 @@ export default class Connections extends Component{
                       <TouchableOpacity 
                       style={{marginBottom:5, marginTop:20}}
                       >
-                      <Text> {item} </Text>
+                      <Text> {item.firstname} {item.lastname} : {item.contactinfo} </Text>
                       </TouchableOpacity>
                   </ListItem>
                 </List>    
