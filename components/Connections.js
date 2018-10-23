@@ -62,12 +62,14 @@ export default class Connections extends Component{
 
 
  _getArray=(users)=>{
+  console.log(users)
   let results = [];
-  let myusers = users.toJSON()
-  console.log(myusers)
 
   // Loop through each user
-  // users.forEach(function(originalObj, idx){
+  users.forEach(function(user){
+    let temp = user.toJSON()
+    results.push(temp)
+
   //   let obj = originalObj.toJSON();    
     // Get the users
     // let users = [];
@@ -84,8 +86,8 @@ export default class Connections extends Component{
     //   userphoto: obj.userphoto || 'http://temp.changeme.com', 
     //   genres: genres, 
     //   instruments: instruments});
-
-    // return results;
+  })
+  return results
   }
   // });
 
@@ -117,6 +119,7 @@ export default class Connections extends Component{
 
   render(){
     const { navigate } = this.props.navigation;
+    console.log('this is users array in render', this.state.usersArray)
     let users = this.state.usersArray
     var results = this._getArray(users);
 
