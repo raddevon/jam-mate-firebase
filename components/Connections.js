@@ -43,9 +43,12 @@ export default class Connections extends Component{
     ref.orderByKey().once("value").then(function(snapshot) {
       snapshot.forEach(function(userSnapshot){
       console.log('here is a usersnapshot', userSnapshot)
-      let myObj = {}
-    //   myObj['userid'] = userSnapshot.key
-    //   myObj['data'] = userSnapshot
+      newList.push(userSnapshot)
+      that.setState({
+        usersArray:newList
+      })
+    //   usersobj['id'] = userSnapshot.key
+    //  
     //   newList.push(myObj)
     //   })
     //   that.setState({
@@ -58,33 +61,33 @@ export default class Connections extends Component{
 
 
 
-//  _getArray=(users)=>{
-//   let results = [];
+ _getArray=(users)=>{
+  let results = [];
+  let myusers = users.toJSON()
+  console.log(myusers)
 
-//   // Loop through each user
-//   users.forEach(function(originalObj, idx){
-//     let obj = originalObj.data.toJSON();    
-//     // Get the genres
-//     let genres = [];
-//     for (let key in obj.genres){
-//       genres.push(obj.genres[key]);
-//     }
-//     // Get the instruments
-//     let instruments = [];
-//     for (let key in obj.instruments){
-//       instruments.push(obj.instruments[key]);
-//     }
-//     // Add the result to the table
-//     results.push({
-//       userid: originalObj.userid,
-//       key: idx, 
-//       firstname: obj.firstname, 
-//       lastname: obj.lastname, 
-//       zipcode: obj.zipcode, 
-//       userphoto: obj.userphoto || 'http://temp.changeme.com', 
-//       genres: genres, 
-//       instruments: instruments});
-//   });
+  // Loop through each user
+  // users.forEach(function(originalObj, idx){
+  //   let obj = originalObj.toJSON();    
+    // Get the users
+    // let users = [];
+    // for (let key in obj.users){
+    //   genres.push(obj.genres[key]);
+    // }
+    // Add the result to the table
+    // results.push({
+    //   userid: originalObj.userid,
+    //   key: idx, 
+    //   firstname: obj.firstname, 
+    //   lastname: obj.lastname, 
+    //   zipcode: obj.zipcode, 
+    //   userphoto: obj.userphoto || 'http://temp.changeme.com', 
+    //   genres: genres, 
+    //   instruments: instruments});
+
+    // return results;
+  }
+  // });
 
 //   return results;
 // }
@@ -115,12 +118,29 @@ export default class Connections extends Component{
   render(){
     const { navigate } = this.props.navigation;
     let users = this.state.usersArray
-    // var results = this._getArray(users);
+    var results = this._getArray(users);
 
     return(
       <Container>
       <Content>
         <H2> Connections </H2>
+        <FlatList 
+                data={results}
+                extraData={results}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({item, index}) => 
+                  <List>
+                  <ListItem>
+                      <TouchableOpacity 
+                      style={{marginBottom:5, marginTop:20}}
+                      >
+                      <Text> {item} </Text>
+                      </TouchableOpacity>
+                  </ListItem>
+                </List>    
+                }
+        >
+        </FlatList>
       </Content>
 
 
