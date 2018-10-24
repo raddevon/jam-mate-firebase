@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, TouchableOpacity} from 'react-native';
-import { Container, Content, Header, Form, Input, Item, Button,
+import { Container, Content, Header, Form, Icon, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Separator } from 'native-base';
  import InstrumentAdder from './InstrumentAdder'
  import GenreAdder from './GenreAdder'
@@ -12,7 +12,8 @@ import { Container, Content, Header, Form, Input, Item, Button,
     this.state={
       toggle:false,
       userzip:null,
-      contactinfo:null,
+      contactinfo:'',
+      formContent:'',
       instruments:null,
       genres:null
     }
@@ -27,6 +28,17 @@ import { Container, Content, Header, Form, Input, Item, Button,
 
   _onStateChange(newState){
     this.setState({toggleState:value})
+  }
+
+  _addContactInfo=(contact)=>{
+    console.log('will add contact info', contact)
+    let userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('/users/' + userId).child('contactinfo').set(this.state.formContent)
+    this.setState({
+      contactinfo: this.state.formContent,
+      formContent:'',
+    })
+
   }
 
   static navigationOptions = {
@@ -49,9 +61,13 @@ import { Container, Content, Header, Form, Input, Item, Button,
       let userId = firebase.auth().currentUser.uid;
       firebase.database().ref('/users/'+ userId).once('value').then((function(snapshot){
       const user = snapshot.val();
+      console.log('this is what it thinks user is', user)
+      console.log('this is what it thinks userzip would be', user.zipcode)
+      console.log('this is what it thinks contactinfo would be', user.contactinfo)
+      // const contactinfo = user.contactinfo.val();
       that.setState({
         userzip: user.zipcode || '',
-        contactinfo: user.contactinfo || ''
+        contactinfo: user.contactinfo || '',
       })
       }));
   }
@@ -78,23 +94,31 @@ import { Container, Content, Header, Form, Input, Item, Button,
     return(
 
       <Container>
-              <Item fixedLabel>
-                      <Label>Contact info</Label>
-                      <Input
-                        onChangeText={(contactinfo) => {
-                          this.setState({contactinfo});
-                          }
-                        }
-                        value={this.state.contactinfo}
-                      />
-              </Item>
-              <InstrumentAdder userId={userId}/>
-              <GenreAdder userId={userId}/>
+      <View>
+        <Text>Contact info you are sharing:</Text>
+      </View>
+      <View>
+        <Text> {this.state.contactinfo} </Text>
+      </View>
+      <Form>
+            <Item floatingLabel>
+              <Label> Update Contact Info</Label>
+                <Input
+                  onChangeText={(formContent) => this.setState({formContent})}
+                  value={this.state.formContent}
+                />
+            </Item>
+                <Button
+                onPress={()=> this._addContactInfo(this.state.contactinfo)}
+                >
+                  <Icon name="add" />
+                </Button>
+        </Form>
+            <InstrumentAdder userId={userId}/>
+            <GenreAdder userId={userId}/>
       </Container>
-
-      )
+    )
   }
-
 }
 
 const styles = StyleSheet.create({

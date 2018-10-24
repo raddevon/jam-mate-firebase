@@ -17,9 +17,9 @@ export default class Home extends Component{
   constructor(props){
     super(props);
     this.state={
-      username:firebase.auth().currentUser.displayName || '',
+      username:(firebase.auth().currentUser || {}).displayName || null,
       user:firebase.auth().currentUser || null,
-      userphoto:firebase.auth().currentUser.photoURL || null,
+      userphoto:firebase.auth().currentUser ? firebase.auth().currentUser.photoURL : null,
       userzip:null,
       uid:firebase.auth().currentUser.uid,
       location: null,
@@ -188,6 +188,14 @@ export default class Home extends Component{
               <Icon name="chatboxes" />
                 <Text>Messages</Text>
               </Button>
+              <Button
+                onPress={
+                () => navigate('Connections')
+                }
+              >
+              <Icon name="chatboxes" />
+                <Text>Connections</Text>
+              </Button>
             </FooterTab>
         </Footer>
 
@@ -198,7 +206,7 @@ export default class Home extends Component{
 }
 
   Home.defaultProps = {
-    username: '',
+    username: null,
     user: null,
     userphoto: null,
     userzip: null,

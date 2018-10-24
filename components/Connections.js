@@ -14,11 +14,12 @@ export default class Connections extends Component{
     super(props);
     this.state={
       usersArray: [],
-      isCreateMessageModalVisible: false,
+      contactinfo: [],
     }
-  
+  }
+
   static navigationOptions = ({navigation}) => ({
-    title: 'Search',
+    title: 'Connections',
     headerLeft: null,
     headerStyle: {
       backgroundColor: '#007bff',
@@ -36,91 +37,80 @@ export default class Connections extends Component{
   
 
   componentDidMount=()=>{
-    handleShowCreateMessageModal();
     let newList=[];
+    let userId = firebase.auth().currentUser.uid;
     let that = this;
-    let ref = firebase.database().ref('/users/');
+    let ref = firebase.database().ref('/users/'+userId).child('connectedusers')
     ref.orderByKey().once("value").then(function(snapshot) {
       snapshot.forEach(function(userSnapshot){
-      let myObj = {}
-      myObj['userid'] = userSnapshot.key
-      myObj['data'] = userSnapshot
-      newList.push(myObj)
+        console.log('here is a usersnapshot', userSnapshot)
+        newList.push(userSnapshot)
       })
-      that.setState({
-        usersArray: newList,
-      })
+      that._getArray(newList)
     })
   }
 
- _getArray=(users)=>{
-  let results = [];
 
-  // Loop through each user
-  users.forEach(function(originalObj, idx){
-    let obj = originalObj.data.toJSON();    
-    // Get the genres
-    let genres = [];
-    for (let key in obj.genres){
-      genres.push(obj.genres[key]);
-    }
-    // Get the instruments
-    let instruments = [];
-    for (let key in obj.instruments){
-      instruments.push(obj.instruments[key]);
-    }
-    // Add the result to the table
-    results.push({
-      userid: originalObj.userid,
-      key: idx, 
-      firstname: obj.firstname, 
-      lastname: obj.lastname, 
-      zipcode: obj.zipcode, 
-      userphoto: obj.userphoto || 'http://temp.changeme.com', 
-      genres: genres, 
-      instruments: instruments});
-  });
 
-  return results;
-}
+   _getArray=(connectedusersids)=>{
+    let ref = firebase.database().ref('/users/');
+    // Loop through each user for id
+    let idlist = connectedusersids.map((id)=>{
+      return id.toJSON()
+    })
+    ref.orderByKey().once('value').then((snapshot) => {
+      let userIds = Object.keys(snapshot.toJSON());
+      let users = userIds.map((id) => {
+        let user = snapshot.toJSON()[id];
+        user.key = id;
+        return user;
+      })
+      let connectedusers = users.filter((item) => {
+        const isConnectedUser = idlist.some((id) => id == item.key) 
+        return isConnectedUser;
+      })
+      let contactinfo = connectedusers.map((user)=> {
+        return {
+          firstname: user.firstname,
+          lastname: user.lastname, 
+          contactinfo: user.contactinfo
+        } 
+      });
+      this.setState({
+        contactinfo: contactinfo
+      })
+    }); 
+  }
+
+
 
   render(){
     const { navigate } = this.props.navigation;
-    let users = this.state.usersArray
-    var results = this._getArray(users);
+    console.log('this is users array in render', this.state.usersArray)
 
     return(
       <Container>
       <Content>
-        <H2> Search Page </H2>
+        <H2> Connections </H2>
         <FlatList 
-                data={results}
-                extraData={results}
-                keyExtractor={(item) => item.userid}
+                data={this.state.contactinfo}
+                extraData={this.state.contactinfo}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({item, index}) => 
-                  <List
-                    listKey={item.userid}
-                  >
-                  <ListItem avatar>
-                    <Left>
-                      <Thumbnail source={{ uri: item.userphoto }} />
-                    </Left>
-                    <Body>
-                      <SearchProfilesCard userid={item.userid} instruments={item.instruments|| []} genres={item.genres||[]} name={item.firstname||[]} />
-                      <Text style={{marginBottom:5, marginTop:20}}>additional text</Text>
-                    </Body>
-                    <Right>
-                    </Right>
+                  <List>
+                  <ListItem>
+                      <TouchableOpacity 
+                      style={{marginBottom:5, marginTop:20}}
+                      >
+                      <Text> {item.firstname} {item.lastname} : {item.contactinfo} </Text>
+                      </TouchableOpacity>
                   </ListItem>
                 </List>    
                 }
         >
         </FlatList>
       </Content>
-      <CreateMessageModal
-        isVisible={this.state.isCreateMessageModalVisible}
-        onBackdropPress={this.handleDismissCreateMessageModal}
-      />
+
 
       <Footer>
       <FooterTab>

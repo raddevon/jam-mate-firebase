@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, ImageBackground, Alert, Image, FlatList, Toucha
 import { Container, Content, Header, Form, Input, Item, Button,
  Label, Left, Body, Right, Title, H3, H2, Grid, Col, Row, List, ListItem, CheckBox, Icon } from 'native-base';
  import FooterNav from './FooterNav'
+ import styles from './styles'
  import * as firebase from 'firebase';
 
 var tempGenreList = []
@@ -78,7 +79,7 @@ export default class GenreAdder extends Component{
               renderItem={({item, index}) => 
               <TouchableOpacity
                 onPress={()=> this._removeGenre(item.key, index)}
-                style={{padding:4, marginBottom:6, borderRadius:10, borderColor:'dodgerblue', borderWidth:1, flexDirection:'row',alignSelf: 'center'}}
+                style={styles.addIconStyle}
                 >
                 <Text
                 style={{textAlign:'center',letterSpacing: 1.5,}}
